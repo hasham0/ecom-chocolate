@@ -48,7 +48,6 @@ export const products = pgTable(dbTables.PRODUCTS, {
 });
 
 type productsSelectTS = InferSelectModel<typeof products>;
-//type productsInsertTS = InferInsertModel<typeof products>;
-type productsInsertTS = typeof products.$inferInsert;
+type productsInsertTS = InferInsertModel<typeof products>;
 
 export type { productsSelectTS, productsInsertTS };

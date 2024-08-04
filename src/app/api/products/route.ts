@@ -21,6 +21,7 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       {
+        flag: false,
         messgae: "failed to fefch product data from db",
         error: error,
       },
@@ -28,8 +29,19 @@ export async function GET(request: NextRequest) {
     );
   }
 
+  if (!allProducts.length) {
+    return NextResponse.json(
+      {
+        flag: false,
+        message: "products not found in db",
+      },
+      { status: 400 }
+    );
+  }
+
   return NextResponse.json(
     {
+      flag: true,
       message: "OK",
       data: allProducts,
     },
@@ -55,6 +67,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       {
+        flag: false,
         messgae: "failed to validate data",
         error: error,
       },
@@ -76,6 +89,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       {
+        flag: false,
         messgae: "failed to upload image",
         error: error,
       },
@@ -83,7 +97,7 @@ export async function POST(request: NextRequest) {
     );
   }
   // inser product data in db
-  let productData;
+  let productData: productsInsertTS[];
   try {
     productData = await db
       .insert(products)
@@ -93,6 +107,7 @@ export async function POST(request: NextRequest) {
     await fs.unlink(path.join(process.cwd(), "public/assets", fileName));
     return NextResponse.json(
       {
+        flag: false,
         messgae: "failed to insert product data in db",
         error: error,
       },
@@ -102,6 +117,7 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.json(
     {
+      flag: true,
       message: "OK",
       data: productData,
     },
