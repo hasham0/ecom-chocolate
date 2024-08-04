@@ -1,5 +1,6 @@
 import { sql } from "drizzle-orm";
 import {
+  index,
   integer,
   pgTable,
   serial,
@@ -13,6 +14,7 @@ import { InferSelectModel, InferInsertModel } from "drizzle-orm";
 enum dbTables {
   USERS = "users",
   PRODUCTS = "products",
+  WAREHOUSES = "warehouses",
 }
 
 // user schema
@@ -28,8 +30,6 @@ export const users = pgTable(dbTables.USERS, {
   updatedAt: timestamp("updated_at").default(sql`CURRENT_TIMESTAMP`),
   createdAt: timestamp("created_at").default(sql`CURRENT_TIMESTAMP`),
 });
-// type SelectUser = typeof users.$inferSelect;
-// type InsertUser = typeof users.$inferInsert;
 
 type userSelectTS = InferSelectModel<typeof users>;
 type userInserTS = InferInsertModel<typeof users>;
@@ -51,3 +51,25 @@ type productsSelectTS = InferSelectModel<typeof products>;
 type productsInsertTS = InferInsertModel<typeof products>;
 
 export type { productsSelectTS, productsInsertTS };
+
+// warehouse schema
+export const warehouses = pgTable(
+  dbTables.WAREHOUSES,
+  {
+    id: serial("id").primaryKey(),
+    name: varchar("name", { length: 100 }).notNull(),
+    pincode: varchar("pincode", { length: 8 }).notNull(),
+    updatedAt: timestamp("updated_at").default(sql`CURRENT_TIMESTAMP`),
+    createdAt: timestamp("created_at").default(sql`CURRENT_TIMESTAMP`),
+  },
+  (table) => {
+    return {
+      pincodeIdx: index("pincodeIdx").on(table.pincode),
+    };
+  }
+);
+
+type warehousesSelectTS = InferSelectModel<typeof warehouses>;
+type warehousesInsertTS = InferInsertModel<typeof warehouses>;
+
+export type { warehousesSelectTS, warehousesInsertTS };

@@ -102,6 +102,7 @@ export async function POST(request: NextRequest) {
     productData = await db
       .insert(products)
       .values({ ...validateData, image: fileName })
+      .returning()
       .execute();
   } catch (error) {
     await fs.unlink(path.join(process.cwd(), "public/assets", fileName));
