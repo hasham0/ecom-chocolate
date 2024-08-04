@@ -4,9 +4,42 @@ import { NextRequest, NextResponse } from "next/server";
 import path from "node:path";
 import fs from "node:fs/promises";
 import { db } from "@/lib/database/db";
-import { products } from "@/lib/database/schemas/schema";
+import {
+  products,
+  productsSelectTS,
+  productsInsertTS,
+} from "@/lib/database/schemas/schema";
+import { desc } from "drizzle-orm";
+
+export async function GET(request: NextRequest) {
+  //! check user => only admin
+
+  // fetch product data from db
+  let allProducts: productsSelectTS[];
+  try {
+    allProducts = await db.select().from(products).orderBy(desc(products.id));
+  } catch (error) {
+    return NextResponse.json(
+      {
+        messgae: "failed to fefch product data from db",
+        error: error,
+      },
+      { status: 500 }
+    );
+  }
+
+  return NextResponse.json(
+    {
+      message: "OK",
+      data: allProducts,
+    },
+    { status: 200 }
+  );
+}
 
 export async function POST(request: NextRequest) {
+  //! check user => only admin
+
   // recive and validate product data
   const data = await request.formData();
 
@@ -49,10 +82,13 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
-
   // inser product data in db
+  let productData;
   try {
-    await db.insert(products).values({ ...validateData, image: fileName });
+    productData = await db
+      .insert(products)
+      .values({ ...validateData, image: fileName })
+      .execute();
   } catch (error) {
     await fs.unlink(path.join(process.cwd(), "public/assets", fileName));
     return NextResponse.json(
@@ -67,6 +103,7 @@ export async function POST(request: NextRequest) {
   return NextResponse.json(
     {
       message: "OK",
+      data: productData,
     },
     { status: 200 }
   );
