@@ -7,6 +7,42 @@ import {
 } from "@/lib/database/schemas/schema";
 import warehousesSchema from "@/lib/validators/warehouseSchema";
 
+export async function GET(request: NextRequest) {
+  // ! check auth
+  let allWarehouseData: warehousesSelectTS[];
+  try {
+    allWarehouseData = await db.select().from(warehouses);
+  } catch (error) {
+    return NextResponse.json(
+      {
+        flag: false,
+        messgae: "failed to fetch warehouse data from db",
+        error: error,
+      },
+      { status: 500 }
+    );
+  }
+
+  if (!allWarehouseData.length) {
+    return NextResponse.json(
+      {
+        flag: false,
+        message: "warehouse not found in db",
+      },
+      { status: 400 }
+    );
+  }
+
+  return NextResponse.json(
+    {
+      flag: true,
+      message: "OK",
+      data: allWarehouseData,
+    },
+    { status: 200 }
+  );
+}
+
 export async function POST(request: NextRequest) {
   // ! check auth
 

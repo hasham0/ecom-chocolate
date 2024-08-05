@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(
       {
         flag: false,
-        messgae: "failed to fefch product data from db",
+        messgae: "failed to fetch product data from db",
         error: error,
       },
       { status: 500 }
