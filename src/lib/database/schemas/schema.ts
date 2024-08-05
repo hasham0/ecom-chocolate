@@ -15,6 +15,8 @@ enum dbTables {
   USERS = "users",
   PRODUCTS = "products",
   WAREHOUSES = "warehouses",
+  DELIVIERY_PERSONS = "delivery_persons",
+  ORDERS = "orders",
 }
 
 // user schema
@@ -73,3 +75,36 @@ type warehousesSelectTS = InferSelectModel<typeof warehouses>;
 type warehousesInsertTS = InferInsertModel<typeof warehouses>;
 
 export type { warehousesSelectTS, warehousesInsertTS };
+
+// orders schema
+export const orders = pgTable(dbTables.ORDERS, {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 100 }).notNull(),
+  updatedAt: timestamp("updated_at").default(sql`CURRENT_TIMESTAMP`),
+  createdAt: timestamp("created_at").default(sql`CURRENT_TIMESTAMP`),
+});
+
+type ordersSelectTS = InferSelectModel<typeof orders>;
+type ordersInsertTS = InferInsertModel<typeof orders>;
+
+export type { ordersSelectTS, ordersInsertTS };
+
+// delivery schema
+export const deliveryPersons = pgTable(dbTables.DELIVIERY_PERSONS, {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 100 }).notNull(),
+  phone: varchar("phone", { length: 11 }).notNull(),
+  warehousesId: integer("warehouse_id").references(() => warehouses.id, {
+    onDelete: "cascade",
+  }),
+  orderId: integer("order_id").references(() => orders.id, {
+    onDelete: "set null",
+  }),
+  updatedAt: timestamp("updated_at").default(sql`CURRENT_TIMESTAMP`),
+  createdAt: timestamp("created_at").default(sql`CURRENT_TIMESTAMP`),
+});
+
+type deliveryPersonsSelectTS = InferSelectModel<typeof deliveryPersons>;
+type deliveryPersonsInsertTS = InferInsertModel<typeof deliveryPersons>;
+
+export type { deliveryPersonsSelectTS, deliveryPersonsInsertTS };
