@@ -1,37 +1,50 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/database/db";
 import {
+  inventries,
+  inventriesInsertTS,
+  inventriesSelectTS,
+  products,
   warehouses,
-  warehousesInsertTS,
-  warehousesSelectTS,
 } from "@/lib/database/schemas/schema";
-import warehousesSchema from "@/lib/validators/warehouseSchema";
+import inventriesSchema from "@/lib/validators/inventriesSchema";
+import { desc, eq } from "drizzle-orm";
 
 export async function GET(request: NextRequest) {
   // ! check auth
 
-  let allWarehouseData: warehousesSelectTS[];
+  let allInventeryData;
 
-  // fetch warehouse data from db
+  // fetch inventery data from db
   try {
-    allWarehouseData = await db.select().from(warehouses);
+    allInventeryData = await db
+      .select({
+        id: inventries.id,
+        sku: inventries.sku,
+        warehouse: warehouses.name,
+        product: products.name,
+      })
+      .from(inventries)
+      .leftJoin(warehouses, eq(inventries.warehouseId, warehouses.id))
+      .leftJoin(products, eq(inventries.productId, products.id))
+      .orderBy(desc(inventries.id));
   } catch (error) {
     return NextResponse.json(
       {
         flag: false,
-        messgae: "failed to fetch warehouse data from db",
+        messgae: "failed to fetch inventry data from db",
         error: error,
       },
       { status: 500 }
     );
   }
 
-  // checking warehouses data length
-  if (!allWarehouseData.length) {
+  // checking inventries data length
+  if (!allInventeryData.length) {
     return NextResponse.json(
       {
         flag: false,
-        message: "warehouse not found in db",
+        message: "inventry not found in db",
       },
       { status: 400 }
     );
@@ -41,7 +54,7 @@ export async function GET(request: NextRequest) {
     {
       flag: true,
       message: "OK",
-      data: allWarehouseData,
+      data: allInventeryData,
     },
     { status: 200 }
   );
@@ -51,15 +64,15 @@ export async function POST(request: NextRequest) {
   // ! check auth
 
   //   recieve and validate data
-  const data: warehousesInsertTS = await request.json();
+  const data: inventriesInsertTS = await request.json();
   let validateData;
   try {
-    validateData = warehousesSchema.parse(data);
+    validateData = inventriesSchema.parse(data);
   } catch (error) {
     return NextResponse.json(
       {
         flag: false,
-        messgae: "failed to validate warehouse data",
+        messgae: "failed to validate inventries data",
         error: error,
       },
       { status: 400 }
@@ -67,10 +80,10 @@ export async function POST(request: NextRequest) {
   }
 
   //   insert data into db
-  let wareahouseData: warehousesInsertTS[];
+  let inventriesData: inventriesInsertTS[];
   try {
-    wareahouseData = await db
-      .insert(warehouses)
+    inventriesData = await db
+      .insert(inventries)
       .values(validateData)
       .returning()
       .execute();
@@ -78,7 +91,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         flag: false,
-        messgae: "failed to insert warehouse data in db",
+        messgae: "failed to insert inventries data in db",
         error: error,
       },
       { status: 500 }
@@ -89,7 +102,7 @@ export async function POST(request: NextRequest) {
     {
       flag: true,
       message: "OK",
-      data: wareahouseData,
+      data: inventriesData,
     },
     { status: 200 }
   );

@@ -16,21 +16,13 @@ export async function GET(
 ) {
   let getProductByID: productsSelectTS[];
 
+  // fetch product data from db by Id
   try {
     getProductByID = await db
       .select()
       .from(products)
       .where(eq(products.id, Number(id)))
       .limit(1);
-    if (!getProductByID.length) {
-      return NextResponse.json(
-        {
-          flag: false,
-          message: "product not found in db",
-        },
-        { status: 400 }
-      );
-    }
   } catch (error) {
     return NextResponse.json(
       {
@@ -39,6 +31,17 @@ export async function GET(
         error: error,
       },
       { status: 500 }
+    );
+  }
+
+  // checking product data length
+  if (!getProductByID.length) {
+    return NextResponse.json(
+      {
+        flag: false,
+        message: "product not found in db",
+      },
+      { status: 400 }
     );
   }
 

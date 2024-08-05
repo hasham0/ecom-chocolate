@@ -11,6 +11,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   // ! check auth
+
+  // fetch delivery person data from db
   let allDeliveryPerson;
   try {
     allDeliveryPerson = await db
@@ -34,6 +36,7 @@ export async function GET(request: NextRequest) {
     );
   }
 
+  // checking delivery person data length
   if (!allDeliveryPerson.length) {
     return NextResponse.json(
       {
@@ -58,8 +61,8 @@ export async function POST(request: NextRequest) {
   //! check authwarehouse
   // recive and validate delivery peroson data
   const data = await request.json();
-  let validateData;
 
+  let validateData: deliveryPersonsInsertTS;
   try {
     validateData = deliveryPersonSchema.parse(data);
   } catch (error) {

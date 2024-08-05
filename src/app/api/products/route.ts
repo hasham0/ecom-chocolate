@@ -29,6 +29,7 @@ export async function GET(request: NextRequest) {
     );
   }
 
+  // checking product data length
   if (!allProducts.length) {
     return NextResponse.json(
       {
