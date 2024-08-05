@@ -1,7 +1,7 @@
-import { ProductTS } from "@/types";
+import { api } from "./client";
+import { FormValues, ProductTS } from "@/lib/validators/productSchema";
 
 export const getAllProducts = async (): Promise<ProductTS[]> => {
-  // Assuming you are using fetch to get the data from an API
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_URL as string}/products`,
     {
@@ -17,6 +17,23 @@ export const getAllProducts = async (): Promise<ProductTS[]> => {
     throw new Error("Network response was not ok");
   }
   const result = await response.json();
+  return result.data;
+};
 
-  return result.data; // Adjust this line based on the structure of your API response
+export const createPrduct = async (
+  data: FormData,
+): Promise<{ message: string; data: ProductTS[] }> => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL as string}/products`,
+    {
+      method: "POST",
+      body: data,
+      credentials: "include",
+    },
+  );
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+  const result = await response.json();
+  return result.data;
 };

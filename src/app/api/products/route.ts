@@ -1,4 +1,6 @@
-import productSchema from "@/lib/validators/productSchema";
+import { getServerSession } from "next-auth";
+import authOptions from "@/lib/auth/authOptions";
+import productSchema, { isServer } from "@/lib/validators/productSchema";
 import { writeFile } from "node:fs/promises";
 import { NextRequest, NextResponse } from "next/server";
 import path from "node:path";
@@ -47,9 +49,18 @@ export async function GET(request: NextRequest) {
   );
 }
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
   //! check user => only admin
+  const session = await getServerSession(authOptions);
 
+  if (!session) {
+    return Response.json({ message: "Not allowed" }, { status: 401 });
+  }
+  // todo: check user access.
+  // @ts-ignore
+  if (session.token.role !== "admin") {
+    return Response.json({ message: "Not allowed" }, { status: 403 });
+  }
   // recive and validate product data
   const data = await request.formData();
 
@@ -58,9 +69,9 @@ export async function POST(request: NextRequest) {
   try {
     validateData = productSchema.parse({
       name: data.get("name"),
-      image: data.get("image"),
       description: data.get("description"),
       price: Number(data.get("price")),
+      image: data.get("image"),
     });
   } catch (error) {
     return NextResponse.json(
@@ -71,17 +82,17 @@ export async function POST(request: NextRequest) {
       { status: 400 },
     );
   }
-
   // convert image string into buffer and store it
-  const fileName = `${Date.now()}.${validateData.image.name
-    .split(".")
-    .slice(-1)}`;
+  const inputImage = isServer
+    ? (validateData.image as File)
+    : (validateData.image as FileList)[0];
 
+  const filename = `${Date.now()}.${inputImage.name.split(".").slice(-1)}`;
   try {
-    const bufferImage = Buffer.from(await validateData.image.arrayBuffer());
+    const buffer = Buffer.from(await inputImage.arrayBuffer());
     await writeFile(
-      path.join(process.cwd(), "public/assets", fileName),
-      bufferImage,
+      path.join(process.cwd(), "public/assets", filename),
+      buffer,
     );
   } catch (error) {
     return NextResponse.json(
@@ -97,11 +108,11 @@ export async function POST(request: NextRequest) {
   try {
     productData = await db
       .insert(products)
-      .values({ ...validateData, image: fileName })
+      .values({ ...validateData, image: filename })
       .returning()
       .execute();
   } catch (error) {
-    await fs.unlink(path.join(process.cwd(), "public/assets", fileName));
+    await fs.unlink(path.join(process.cwd(), "public/assets", filename));
     return NextResponse.json(
       {
         messgae: "failed to insert product data in db",
@@ -110,12 +121,8 @@ export async function POST(request: NextRequest) {
       { status: 500 },
     );
   }
-
   return NextResponse.json(
-    {
-      message: "OK",
-      data: productData,
-    },
-    { status: 200 },
+    { message: "OK", data: productData },
+    { status: 201 },
   );
 }

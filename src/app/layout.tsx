@@ -2,7 +2,7 @@ import QueryProviderWrapper from "@/wrapper/provider/query-provider";
 import { Inter as FontSans } from "next/font/google";
 import type { Metadata } from "next";
 import "./globals.css";
-
+import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/utils";
 
 const fontSans = FontSans({
@@ -29,6 +29,7 @@ export default function RootLayout({
         )}
       >
         <QueryProviderWrapper>{children}</QueryProviderWrapper>
+        <Toaster />
       </body>
     </html>
   );

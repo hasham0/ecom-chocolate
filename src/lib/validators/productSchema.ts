@@ -1,10 +1,18 @@
 import { z } from "zod";
 
+export const isServer = typeof window === "undefined";
+
 const productSchema = z.object({
-  name: z.string({ message: "product name should be string" }),
-  image: z.instanceof(File, { message: "product image should be a string" }),
-  description: z.string({ message: "product description should be string" }),
-  price: z.number({ message: "product price should be number" }),
+  name: z.string({ message: "Product name should be a string" }).min(3),
+  image: z.instanceof(isServer ? File : FileList, {
+    message: "Product image should be a image",
+  }),
+  description: z
+    .string({ message: "Product description should be a string" })
+    .min(8),
+  price: z.number({ message: "Product price should be a number" }),
 });
 
+export type FormValues = z.input<typeof productSchema>;
+export type ProductTS = z.infer<typeof productSchema>;
 export default productSchema;
