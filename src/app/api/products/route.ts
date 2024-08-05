@@ -21,11 +21,10 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       {
-        flag: false,
         messgae: "failed to fetch product data from db",
         error: error,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 
@@ -33,20 +32,18 @@ export async function GET(request: NextRequest) {
   if (!allProducts.length) {
     return NextResponse.json(
       {
-        flag: false,
         message: "products not found in db",
       },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
   return NextResponse.json(
     {
-      flag: true,
       message: "OK",
       data: allProducts,
     },
-    { status: 200 }
+    { status: 200 },
   );
 }
 
@@ -68,11 +65,10 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       {
-        flag: false,
         messgae: "failed to validate data",
         error: error,
       },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -85,16 +81,15 @@ export async function POST(request: NextRequest) {
     const bufferImage = Buffer.from(await validateData.image.arrayBuffer());
     await writeFile(
       path.join(process.cwd(), "public/assets", fileName),
-      bufferImage
+      bufferImage,
     );
   } catch (error) {
     return NextResponse.json(
       {
-        flag: false,
         messgae: "failed to upload image",
         error: error,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
   // inser product data in db
@@ -109,20 +104,18 @@ export async function POST(request: NextRequest) {
     await fs.unlink(path.join(process.cwd(), "public/assets", fileName));
     return NextResponse.json(
       {
-        flag: false,
         messgae: "failed to insert product data in db",
         error: error,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 
   return NextResponse.json(
     {
-      flag: true,
       message: "OK",
       data: productData,
     },
-    { status: 200 }
+    { status: 200 },
   );
 }
