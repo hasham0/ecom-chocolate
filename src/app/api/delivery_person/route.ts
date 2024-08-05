@@ -3,12 +3,59 @@ import {
   deliveryPersons,
   deliveryPersonsInsertTS,
   deliveryPersonsSelectTS,
+  warehouses,
 } from "@/lib/database/schemas/schema";
 import deliveryPersonSchema from "@/lib/validators/deliveryPersonSchema";
+import { desc, eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 
+export async function GET(request: NextRequest) {
+  // ! check auth
+  let allDeliveryPerson;
+  try {
+    allDeliveryPerson = await db
+      .select({
+        id: deliveryPersons.id,
+        name: deliveryPersons.name,
+        phone: deliveryPersons.phone,
+        warehouses: warehouses.name,
+      })
+      .from(deliveryPersons)
+      .leftJoin(warehouses, eq(deliveryPersons.warehousesId, warehouses.id))
+      .orderBy(desc(deliveryPersons.id));
+  } catch (error) {
+    return NextResponse.json(
+      {
+        flag: false,
+        messgae: "failed to fetch delivery person data from db",
+        error: error,
+      },
+      { status: 500 }
+    );
+  }
+
+  if (!allDeliveryPerson.length) {
+    return NextResponse.json(
+      {
+        flag: false,
+        message: " delivery person data not found in db",
+      },
+      { status: 400 }
+    );
+  }
+
+  return NextResponse.json(
+    {
+      flag: true,
+      message: "OK",
+      data: allDeliveryPerson,
+    },
+    { status: 200 }
+  );
+}
+
 export async function POST(request: NextRequest) {
-  //! check auth
+  //! check authwarehouse
   // recive and validate delivery peroson data
   const data = await request.json();
   let validateData;
