@@ -41,8 +41,8 @@ const WarehouseSheet = ({}: Props) => {
     <Sheet open={isOpen} onOpenChange={onClose}>
       <SheetContent className="min-w-[28rem] space-y-4">
         <SheetHeader>
-          <SheetTitle>Create Product</SheetTitle>
-          <SheetDescription>create a new product </SheetDescription>
+          <SheetTitle>Add Warehouse</SheetTitle>
+          <SheetDescription>add a new warehouse </SheetDescription>
         </SheetHeader>
         <CreateWarehouseForm
           onSubmit={onSubmitFormValues}

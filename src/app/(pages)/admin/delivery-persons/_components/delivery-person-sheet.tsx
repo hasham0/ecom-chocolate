@@ -41,8 +41,8 @@ const DeliveryPersonSheet = ({}: Props) => {
     <Sheet open={isOpen} onOpenChange={onClose}>
       <SheetContent className="min-w-[28rem] space-y-4">
         <SheetHeader>
-          <SheetTitle>Create Product</SheetTitle>
-          <SheetDescription>create a new product </SheetDescription>
+          <SheetTitle>Add Delivery Person</SheetTitle>
+          <SheetDescription>add a new delivery person</SheetDescription>
         </SheetHeader>
         <CreateDeliveryPersonForm
           onSubmit={onSubmitFormValues}
