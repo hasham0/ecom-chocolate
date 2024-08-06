@@ -19,14 +19,15 @@ export const getAllWarehouses = async (): Promise<{
     throw new Error("Network response was not ok");
   }
   const result = await response.json();
-  return result.data;
+
+  return result;
 };
 
 export const createWarehouse = async (
   data: WarehouseTS,
 ): Promise<{ message: string; data: WarehouseTS[] }> => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL as string}/products`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL as string}/warehouse`,
     {
       method: "POST",
       headers: {
@@ -40,5 +41,5 @@ export const createWarehouse = async (
     throw new Error("Network response was not ok");
   }
   const result = await response.json();
-  return result.data;
+  return result;
 };

@@ -1,23 +1,23 @@
 "use client";
 import React from "react";
-import { DataTable } from "./data-table";
-import columns from "./columns";
-import { getAllProducts } from "@/app/data request api/product";
 import { useQuery } from "@tanstack/react-query";
-import { ProductTS } from "@/lib/validators/productSchema";
 import { Loader2 } from "lucide-react";
+import { getAllWarehouses } from "@/app/data request api/warehouse";
+import { WarehouseTS } from "@/lib/validators/warehouseSchema";
+import { DataTable } from "../../products/_components/data-table";
+import columns from "./columns";
 
 type Props = {};
 
-const DisplayData = (props: Props) => {
+const DisplayWarehouseData = (props: Props) => {
   const {
-    data: products,
+    data: warehouse,
     isLoading,
     isError,
     error,
-  } = useQuery<{ message: string; data: ProductTS[] }>({
-    queryKey: ["products"],
-    queryFn: getAllProducts,
+  } = useQuery<{ message: string; data: WarehouseTS[] }>({
+    queryKey: ["warehouse"],
+    queryFn: getAllWarehouses,
   });
 
   if (isLoading) {
@@ -36,8 +36,7 @@ const DisplayData = (props: Props) => {
       </div>
     );
   }
-
-  return <DataTable columns={columns} data={products?.data || []} />;
+  return <DataTable columns={columns} data={warehouse?.data || []} />;
 };
 
-export default DisplayData;
+export default DisplayWarehouseData;

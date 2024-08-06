@@ -9,24 +9,17 @@ export type NewProductStateActionTS = {
   onClose: () => void;
 };
 
-// const useNewProduct = create<NewProductStateTS>((set) => {
-//   return {
-//     isOpen: false,
-//     onOpen: () => set({ isOpen: true }),
-//     onClose: () => set({ isOpen: false }),
-//   };
-// });
-
 export const defaultInitState: NewProductStateValueTS = {
   isOpen: false,
 };
 
-export type NewProductSoreTS = NewProductStateValueTS & NewProductStateActionTS;
+export type NewProductStoreTS = NewProductStateValueTS &
+  NewProductStateActionTS;
 
 export const NewProductStore = (
   initState: NewProductStateValueTS = defaultInitState,
 ) => {
-  return createStore<NewProductSoreTS>()((set) => ({
+  return createStore<NewProductStoreTS>()((set) => ({
     ...initState,
     isOpen: false,
     onOpen: () => set({ isOpen: true }),

@@ -1,6 +1,6 @@
-import DisplayData from "./_components/display-data";
 import ProductSheet from "./_components/product-sheet";
 import AddProductButton from "./_components/add-product-button";
+import DisplayProductData from "./_components/display-product-data";
 
 type Props = {};
 
@@ -10,7 +10,7 @@ export default function ProductsPage({}: Props) {
       <AddProductButton />
       <ProductSheet />
       <div>
-        <DisplayData />
+        <DisplayProductData />
       </div>
     </div>
   );
