@@ -1,5 +1,4 @@
 "use client";
-import { ProductTS } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 
@@ -12,6 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { ProductTS } from "@/lib/validators/productSchema";
 
 const columns: ColumnDef<ProductTS>[] = [
   {

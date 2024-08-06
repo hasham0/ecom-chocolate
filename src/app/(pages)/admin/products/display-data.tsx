@@ -2,7 +2,7 @@
 import React from "react";
 import { DataTable } from "./data-table";
 import columns from "./columns";
-import { getAllProducts } from "@/app/http/api";
+import { getAllProducts } from "@/app/http/product";
 import { useQuery } from "@tanstack/react-query";
 import { ProductTS } from "@/lib/validators/productSchema";
 import { Loader2 } from "lucide-react";

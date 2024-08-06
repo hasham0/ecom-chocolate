@@ -3,6 +3,7 @@ import { z } from "zod";
 export const isServer = typeof window === "undefined";
 
 const productSchema = z.object({
+  id: z.string().optional(),
   name: z.string({ message: "Product name should be a string" }).min(3),
   image: z.instanceof(isServer ? File : FileList, {
     message: "Product image should be a image",

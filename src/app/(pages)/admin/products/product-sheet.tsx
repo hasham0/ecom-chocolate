@@ -9,7 +9,7 @@ import {
 import CreateProductForm from "./create-product-form";
 import { FormValues } from "@/lib/validators/productSchema";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createPrduct } from "@/app/http/api";
+import { createPrduct } from "@/app/http/product";
 import { useToast } from "@/components/ui/use-toast";
 import { useNewProduct } from "@/store/hooks/product-hook";
 
