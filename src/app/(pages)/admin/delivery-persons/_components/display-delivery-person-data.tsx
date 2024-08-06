@@ -2,22 +2,22 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
-import { getAllWarehouses } from "@/app/data request api/warehouse";
-import { WarehouseTS } from "@/lib/validators/warehouseSchema";
-import { DataTable } from "../../_components/data-table";
 import columns from "./columns";
+import { getAllDeliveryPerson } from "@/app/data request api/delivery-person";
+import { DeliveryPersonTS } from "@/lib/validators/deliveryPersonSchema";
+import { DataTable } from "../../_components/data-table";
 
 type Props = {};
 
-const DisplayWarehouseData = (props: Props) => {
+const DisplayDeliveryPersonData = (props: Props) => {
   const {
-    data: warehouse,
+    data: deliveryPerosn,
     isLoading,
     isError,
     error,
-  } = useQuery<{ message: string; data: WarehouseTS[] }>({
-    queryKey: ["warehouse"],
-    queryFn: getAllWarehouses,
+  } = useQuery<{ message: string; data: DeliveryPersonTS[] }>({
+    queryKey: ["delivery-person"],
+    queryFn: getAllDeliveryPerson,
   });
 
   if (isLoading) {
@@ -36,7 +36,7 @@ const DisplayWarehouseData = (props: Props) => {
       </div>
     );
   }
-  return <DataTable columns={columns} data={warehouse?.data || []} />;
+  return <DataTable columns={columns} data={deliveryPerosn?.data || []} />;
 };
 
-export default DisplayWarehouseData;
+export default DisplayDeliveryPersonData;

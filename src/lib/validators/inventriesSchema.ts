@@ -2,6 +2,7 @@ import { z } from "zod";
 import { warehouses } from "../database/schemas/schema";
 
 const inventriesSchema = z.object({
+  id: z.string().optional(),
   sku: z
     .string({ message: "SKU should be in string" })
     .length(8, "SKU should be 8 character long"),

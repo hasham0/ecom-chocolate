@@ -6,13 +6,13 @@ import { NewProductStoreTS } from "../product/product-store";
 export const useNewProduct = <T>(
   selector: (store: NewProductStoreTS) => T,
 ): T => {
-  const productContext = useContext(ProductStoreContext);
+  const context = useContext(ProductStoreContext);
 
-  if (!productContext) {
+  if (!context) {
     throw new Error(
       `Zustand provider should wrap the entire Application => product context`,
     );
   }
 
-  return useStore(productContext, selector);
+  return useStore(context, selector);
 };

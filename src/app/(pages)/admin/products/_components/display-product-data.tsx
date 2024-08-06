@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { DataTable } from "./data-table";
+import { DataTable } from "../../_components/data-table";
 import columns from "./columns";
 import { getAllProducts } from "@/app/data request api/product";
 import { useQuery } from "@tanstack/react-query";

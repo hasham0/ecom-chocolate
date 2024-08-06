@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 const deliveryPersonSchema = z.object({
+  id: z.string().optional(),
   name: z.string({ message: "delivery person name should be string" }),
   phone: z
     .string({ message: "phone should be string" })

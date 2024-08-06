@@ -10,16 +10,24 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { WarehouseTS } from "@/lib/validators/warehouseSchema";
+import { DeliveryPersonTS } from "@/lib/validators/deliveryPersonSchema";
 
-const columns: ColumnDef<WarehouseTS>[] = [
+const columns: ColumnDef<DeliveryPersonTS>[] = [
+  {
+    accessorKey: "id",
+    header: "ID",
+  },
   {
     accessorKey: "name",
     header: "Name",
   },
   {
-    accessorKey: "pincode",
-    header: "Pincode",
+    accessorKey: "phone",
+    header: "Phone",
+  },
+  {
+    accessorKey: "warehouses",
+    header: "Warehouse",
   },
   {
     id: "action",
