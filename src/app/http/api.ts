@@ -1,5 +1,4 @@
-import { api } from "./client";
-import { FormValues, ProductTS } from "@/lib/validators/productSchema";
+import { ProductTS } from "@/lib/validators/productSchema";
 
 export const getAllProducts = async (): Promise<ProductTS[]> => {
   const response = await fetch(

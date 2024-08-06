@@ -14,6 +14,7 @@ const DisplayData = (props: Props) => {
     data: products,
     isLoading,
     isError,
+    error,
   } = useQuery<ProductTS[]>({
     queryKey: ["products"],
     queryFn: getAllProducts,
@@ -28,7 +29,12 @@ const DisplayData = (props: Props) => {
   }
 
   if (isError) {
-    return <div>Error loading products</div>;
+    const err = error.message;
+    return (
+      <div className="text-xl text-red-600 underline underline-offset-1">
+        {err || "Error loading products "}
+      </div>
+    );
   }
 
   return <DataTable columns={columns} data={products || []} />;
