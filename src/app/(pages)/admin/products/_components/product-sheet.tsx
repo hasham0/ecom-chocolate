@@ -9,7 +9,7 @@ import {
 import CreateProductForm from "./create-product-form";
 import { FormValues } from "@/lib/validators/productSchema";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createPrduct } from "@/app/http/product";
+import { createProduct } from "@/app/data request api/product";
 import { useToast } from "@/components/ui/use-toast";
 import { useNewProduct } from "@/store/hooks/product-hook";
 
@@ -22,7 +22,7 @@ const ProductSheet = ({}: Props) => {
 
   const { mutate, isPending } = useMutation({
     mutationKey: ["create-product"],
-    mutationFn: (data: FormData) => createPrduct(data),
+    mutationFn: (data: FormData) => createProduct(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
       onClose();

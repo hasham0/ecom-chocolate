@@ -1,6 +1,6 @@
-import DisplayData from "./display-data";
-import ProductSheet from "./product-sheet";
-import AddProductButton from "./add-product-button";
+import DisplayData from "./_components/display-data";
+import ProductSheet from "./_components/product-sheet";
+import AddProductButton from "./_components/add-product-button";
 
 type Props = {};
 

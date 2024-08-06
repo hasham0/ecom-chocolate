@@ -12,4 +12,5 @@ const deliveryPersonSchema = z.object({
   }),
 });
 
+export type DeliveryPersonTS = z.infer<typeof deliveryPersonSchema>;
 export default deliveryPersonSchema;

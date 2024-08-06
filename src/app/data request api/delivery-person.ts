@@ -1,8 +1,11 @@
-import { ProductTS } from "@/lib/validators/productSchema";
+import { DeliveryPersonTS } from "@/lib/validators/deliveryPersonSchema";
 
-export const getAllProducts = async (): Promise<ProductTS[]> => {
+export const getAllDeliveryPerson = async (): Promise<{
+  message: string;
+  data: DeliveryPersonTS[];
+}> => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL as string}/products`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL as string}/delivery_person`,
     {
       method: "GET",
       headers: {
@@ -16,17 +19,17 @@ export const getAllProducts = async (): Promise<ProductTS[]> => {
     throw new Error("Network response was not ok");
   }
   const result = await response.json();
-  return result.data;
+  return result;
 };
 
-export const createPrduct = async (
-  data: FormData,
-): Promise<{ message: string; data: ProductTS[] }> => {
+export const newDeliveryPerson = async (
+  data: DeliveryPersonTS,
+): Promise<{ message: string; data: DeliveryPersonTS[] }> => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL as string}/products`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL as string}/delivery_person`,
     {
       method: "POST",
-      body: data,
+      body: JSON.stringify(data),
       credentials: "include",
     },
   );

@@ -28,11 +28,10 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       {
-        flag: false,
         messgae: "failed to fetch delivery person data from db",
         error: error,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 
@@ -40,20 +39,18 @@ export async function GET(request: NextRequest) {
   if (!allDeliveryPerson.length) {
     return NextResponse.json(
       {
-        flag: false,
         message: " delivery person data not found in db",
       },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
   return NextResponse.json(
     {
-      flag: true,
       message: "OK",
       data: allDeliveryPerson,
     },
-    { status: 200 }
+    { status: 200 },
   );
 }
 
@@ -68,11 +65,10 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       {
-        flag: false,
         messgae: "failed to validate delivery person data",
         error: error,
       },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -87,20 +83,18 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       {
-        flag: false,
         messgae: "failed to insert delivery person data in db",
         error: error,
       },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
   return NextResponse.json(
     {
-      flag: true,
       message: "OK",
       data: deliveryPersonData,
     },
-    { status: 200 }
+    { status: 200 },
   );
 }

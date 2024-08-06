@@ -18,11 +18,10 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       {
-        flag: false,
         messgae: "failed to fetch warehouse data from db",
         error: error,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 
@@ -30,20 +29,18 @@ export async function GET(request: NextRequest) {
   if (!allWarehouseData.length) {
     return NextResponse.json(
       {
-        flag: false,
         message: "warehouse not found in db",
       },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
   return NextResponse.json(
     {
-      flag: true,
       message: "OK",
       data: allWarehouseData,
     },
-    { status: 200 }
+    { status: 200 },
   );
 }
 
@@ -58,11 +55,10 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       {
-        flag: false,
         messgae: "failed to validate warehouse data",
         error: error,
       },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -77,20 +73,18 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       {
-        flag: false,
         messgae: "failed to insert warehouse data in db",
         error: error,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 
   return NextResponse.json(
     {
-      flag: true,
       message: "OK",
       data: wareahouseData,
     },
-    { status: 200 }
+    { status: 200 },
   );
 }

@@ -5,4 +5,5 @@ const warehousesSchema = z.object({
   pincode: z.string({ message: "pincode should be string" }).min(6),
 });
 
+export type WarehouseTS = z.infer<typeof warehousesSchema>;
 export default warehousesSchema;
