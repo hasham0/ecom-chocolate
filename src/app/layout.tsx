@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/utils";
+import ZustandStoreProvider from "@/store/provider/store-provider";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -28,7 +29,9 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
-        <QueryProviderWrapper>{children}</QueryProviderWrapper>
+        <ZustandStoreProvider>
+          <QueryProviderWrapper>{children}</QueryProviderWrapper>
+        </ZustandStoreProvider>
         <Toaster />
       </body>
     </html>

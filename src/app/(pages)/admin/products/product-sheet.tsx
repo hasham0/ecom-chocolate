@@ -1,5 +1,4 @@
 "use client";
-// import FormData from "form-data";
 import {
   Sheet,
   SheetContent,
@@ -12,10 +11,12 @@ import { FormValues } from "@/lib/validators/productSchema";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createPrduct } from "@/app/http/api";
 import { useToast } from "@/components/ui/use-toast";
+import { useNewProduct } from "@/store/hooks/product-hook";
 
 type Props = {};
 
 const ProductSheet = ({}: Props) => {
+  const { isOpen, onClose } = useNewProduct((state) => state);
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
@@ -37,7 +38,7 @@ const ProductSheet = ({}: Props) => {
   };
 
   return (
-    <Sheet open={true}>
+    <Sheet open={isOpen} onOpenChange={onClose}>
       <SheetContent className="min-w-[28rem] space-y-4">
         <SheetHeader>
           <SheetTitle>Create Product</SheetTitle>
