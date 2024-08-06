@@ -20,7 +20,7 @@ const ProductSheet = ({}: Props) => {
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationKey: ["create-product"],
     mutationFn: (data: FormData) => createPrduct(data),
     onSuccess: () => {
@@ -44,7 +44,7 @@ const ProductSheet = ({}: Props) => {
           <SheetTitle>Create Product</SheetTitle>
           <SheetDescription>create a new product </SheetDescription>
         </SheetHeader>
-        <CreateProductForm onSubmit={onSubmitFormValues} />
+        <CreateProductForm onSubmit={onSubmitFormValues} disabled={isPending} />
       </SheetContent>
     </Sheet>
   );
