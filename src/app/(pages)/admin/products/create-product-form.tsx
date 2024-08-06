@@ -32,8 +32,7 @@ const CreateProductForm = ({ onSubmit, disabled }: Props) => {
   const fileRef = form.register("image");
 
   const onSubmitHandler = (values: FormValues) => {
-    const dd = onSubmit(values);
-    console.log(dd);
+    onSubmit(values);
   };
   return (
     <Form {...form}>

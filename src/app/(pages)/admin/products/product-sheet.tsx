@@ -25,6 +25,7 @@ const ProductSheet = ({}: Props) => {
     mutationFn: (data: FormData) => createPrduct(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
+      onClose();
     },
   });
 
