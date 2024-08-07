@@ -27,7 +27,7 @@ const DeliveryPersonSheet = ({}: Props) => {
       queryClient.invalidateQueries({ queryKey: ["delivery-person"] });
       onClose();
       toast({
-        title: "Delivery Person Successfully Added",
+        title: "Delivery Person Added Successfully",
         description: "new delivery person added",
       });
     },

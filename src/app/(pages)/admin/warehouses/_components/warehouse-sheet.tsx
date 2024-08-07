@@ -27,8 +27,8 @@ const WarehouseSheet = ({}: Props) => {
       queryClient.invalidateQueries({ queryKey: ["warehouse"] });
       onClose();
       toast({
-        title: "Warehouse Created Successfully",
-        description: "new warehouse created",
+        title: "Warehouse Added Successfully",
+        description: "new warehouse added",
       });
     },
   });

@@ -27,8 +27,8 @@ const ProductSheet = ({}: Props) => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
       onClose();
       toast({
-        title: "Product Created Successfully",
-        description: "new product created",
+        title: "Product Added Successfully",
+        description: "new product added",
       });
     },
   });
