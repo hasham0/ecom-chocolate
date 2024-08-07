@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { DeliveryPersonTS } from "@/lib/validators/deliveryPersonSchema";
+import { DeliveryPersonTS } from "@/lib/validators/deliveryPersonsSchema";
 
 const columns: ColumnDef<DeliveryPersonTS>[] = [
   {

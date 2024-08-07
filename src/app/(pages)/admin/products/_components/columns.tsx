@@ -11,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ProductTS } from "@/lib/validators/productSchema";
+import { ProductTS } from "@/lib/validators/productsSchema";
 
 const columns: ColumnDef<ProductTS>[] = [
   {

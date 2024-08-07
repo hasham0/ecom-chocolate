@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { warehouses } from "../database/schemas/schema";
 
-const inventriesSchema = z.object({
+const inventoriesSchema = z.object({
   id: z.number().optional(),
   sku: z
     .string({ message: "SKU should be in string" })
@@ -10,5 +10,5 @@ const inventriesSchema = z.object({
   productId: z.number({ message: "product id should be a number" }),
 });
 
-export type InvetriesTS = z.infer<typeof inventriesSchema>;
-export default inventriesSchema;
+export type InvetoriesTS = z.infer<typeof inventoriesSchema>;
+export default inventoriesSchema;

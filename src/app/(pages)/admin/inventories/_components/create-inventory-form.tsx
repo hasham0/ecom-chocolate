@@ -23,21 +23,21 @@ import { z } from "zod";
 import { Loader2 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { getAllWarehouses } from "@/app/data request api/warehouse";
-import inventriesSchema, {
-  InvetriesTS,
-} from "@/lib/validators/inventriesSchema";
+import inventoriesSchema, {
+  InvetoriesTS,
+} from "@/lib/validators/inventoriesSchema";
 import { WarehouseTS } from "@/lib/validators/warehouseSchema";
-import { ProductTS } from "@/lib/validators/productSchema";
+import { ProductTS } from "@/lib/validators/productsSchema";
 import { getAllProducts } from "@/app/data request api/product";
 
 type Props = {
-  onSubmit: (values: InvetriesTS) => void;
+  onSubmit: (values: InvetoriesTS) => void;
   disabled: boolean;
 };
 
 const CreateInventoryForm = ({ onSubmit, disabled }: Props) => {
-  const form = useForm<z.infer<typeof inventriesSchema>>({
-    resolver: zodResolver(inventriesSchema),
+  const form = useForm<z.infer<typeof inventoriesSchema>>({
+    resolver: zodResolver(inventoriesSchema),
     defaultValues: {
       sku: "",
     },
@@ -59,7 +59,7 @@ const CreateInventoryForm = ({ onSubmit, disabled }: Props) => {
     queryFn: getAllProducts,
   });
 
-  const onSubmitHandler = (values: InvetriesTS) => {
+  const onSubmitHandler = (values: InvetoriesTS) => {
     onSubmit(values);
   };
   return (

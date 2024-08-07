@@ -7,7 +7,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import CreateProductForm from "./create-product-form";
-import { FormValues } from "@/lib/validators/productSchema";
+import { FormValues } from "@/lib/validators/productsSchema";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createProduct } from "@/app/data request api/product";
 import { useToast } from "@/components/ui/use-toast";

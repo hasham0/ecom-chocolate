@@ -17,8 +17,8 @@ const navItems: Array<navItemTS> = [
     href: "/admin/delivery-persons",
     icon: Users,
   },
-  { label: "Order", href: "/admin/orders", icon: ShoppingCart },
-  { label: "Inventries", href: "/admin/inventries", icon: Blocks },
+  { label: "Orders", href: "/admin/orders", icon: ShoppingCart },
+  { label: "Inventories", href: "/admin/inventories", icon: Blocks },
 ];
 
 export default navItems;

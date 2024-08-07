@@ -3,13 +3,6 @@ import { CircleUser, Menu } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-// import {
-//   Card,
-//   CardContent,
-//   CardDescription,
-//   CardHeader,
-//   CardTitle,
-// } from "@/components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -55,22 +48,6 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
                   </Link>
                 ))}
               </nav>
-              {/* <div className="mt-auto">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Upgrade to Pro</CardTitle>
-                    <CardDescription>
-                      Unlock all features and get unlimited access to our
-                      support team.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Button size="sm" className="w-full">
-                      Upgrade
-                    </Button>
-                  </CardContent>
-                </Card>
-              </div> */}
             </SheetContent>
           </Sheet>
           <div className="w-full flex-1">

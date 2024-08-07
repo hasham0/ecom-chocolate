@@ -23,7 +23,7 @@ import { z } from "zod";
 import { Loader2 } from "lucide-react";
 import deliveryPersonSchema, {
   DeliveryPersonTS,
-} from "@/lib/validators/deliveryPersonSchema";
+} from "@/lib/validators/deliveryPersonsSchema";
 import { useQuery } from "@tanstack/react-query";
 import { WarehouseTS } from "@/lib/validators/warehouseSchema";
 import { getAllWarehouses } from "@/app/data request api/warehouse";

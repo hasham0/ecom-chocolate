@@ -1,4 +1,4 @@
-import { DeliveryPersonTS } from "@/lib/validators/deliveryPersonSchema";
+import { DeliveryPersonTS } from "@/lib/validators/deliveryPersonsSchema";
 
 export const getAllDeliveryPerson = async (): Promise<{
   message: string;

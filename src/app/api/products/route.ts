@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 import authOptions from "@/lib/auth/authOptions";
-import productSchema, { isServer } from "@/lib/validators/productSchema";
+import productSchema, { isServer } from "@/lib/validators/productsSchema";
 import { writeFile } from "node:fs/promises";
 import { NextRequest, NextResponse } from "next/server";
 import path from "node:path";

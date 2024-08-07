@@ -1,4 +1,4 @@
-import { ProductTS } from "@/lib/validators/productSchema";
+import { ProductTS } from "@/lib/validators/productsSchema";
 
 export const getAllProducts = async (): Promise<{
   message: string;

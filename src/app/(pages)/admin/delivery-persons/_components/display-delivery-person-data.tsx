@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 import columns from "./columns";
 import { getAllDeliveryPerson } from "@/app/data request api/delivery-person";
-import { DeliveryPersonTS } from "@/lib/validators/deliveryPersonSchema";
+import { DeliveryPersonTS } from "@/lib/validators/deliveryPersonsSchema";
 import { DataTable } from "../../_components/data-table";
 
 type Props = {};

@@ -5,7 +5,7 @@ import {
   deliveryPersonsSelectTS,
   warehouses,
 } from "@/lib/database/schemas/schema";
-import deliveryPersonSchema from "@/lib/validators/deliveryPersonSchema";
+import deliveryPersonSchema from "@/lib/validators/deliveryPersonsSchema";
 import { desc, eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 

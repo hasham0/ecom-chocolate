@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const deliveryPersonSchema = z.object({
+const deliveryPersonsSchema = z.object({
   id: z.string().optional(),
   name: z.string({ message: "delivery person name should be string" }),
   phone: z
@@ -13,5 +13,5 @@ const deliveryPersonSchema = z.object({
   }),
 });
 
-export type DeliveryPersonTS = z.infer<typeof deliveryPersonSchema>;
-export default deliveryPersonSchema;
+export type DeliveryPersonTS = z.infer<typeof deliveryPersonsSchema>;
+export default deliveryPersonsSchema;

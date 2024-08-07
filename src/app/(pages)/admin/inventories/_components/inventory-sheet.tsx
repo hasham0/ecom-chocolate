@@ -8,21 +8,21 @@ import {
 } from "@/components/ui/sheet";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/components/ui/use-toast";
-import { useDeliveryPerson } from "@/store/hooks/delivery-person-hook";
-import CreateDeliveryPersonForm from "./create-delivery-person-form";
-import { DeliveryPersonTS } from "@/lib/validators/deliveryPersonsSchema";
-import { newDeliveryPerson } from "@/app/data request api/delivery-person";
+import { useNewInventory } from "@/store/hooks/inventory-hook";
+import { newInventry } from "@/app/data request api/inventries";
+import CreateInventoryForm from "./create-inventory-form";
+import { InvetoriesTS } from "@/lib/validators/inventoriesSchema";
 
 type Props = {};
 
-const DeliveryPersonSheet = ({}: Props) => {
-  const { isOpen, onClose } = useDeliveryPerson((state) => state);
+const InventorySheet = ({}: Props) => {
+  const { isOpen, onClose } = useNewInventory((state) => state);
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
   const { mutate, isPending } = useMutation({
-    mutationKey: ["create-delivery-person"],
-    mutationFn: (data: DeliveryPersonTS) => newDeliveryPerson(data),
+    mutationKey: ["create-inventory"],
+    mutationFn: (data: InvetoriesTS) => newInventry(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["delivery-person"] });
       onClose();
@@ -33,7 +33,7 @@ const DeliveryPersonSheet = ({}: Props) => {
     },
   });
 
-  const onSubmitFormValues = (values: DeliveryPersonTS) => {
+  const onSubmitFormValues = (values: InvetoriesTS) => {
     mutate(values);
   };
 
@@ -41,10 +41,10 @@ const DeliveryPersonSheet = ({}: Props) => {
     <Sheet open={isOpen} onOpenChange={onClose}>
       <SheetContent className="min-w-[28rem] space-y-4">
         <SheetHeader>
-          <SheetTitle>Add Delivery Person</SheetTitle>
-          <SheetDescription>add a new delivery person</SheetDescription>
+          <SheetTitle>Add Inventory</SheetTitle>
+          <SheetDescription>add new inventory item</SheetDescription>
         </SheetHeader>
-        <CreateDeliveryPersonForm
+        <CreateInventoryForm
           onSubmit={onSubmitFormValues}
           disabled={isPending}
         />
@@ -53,4 +53,4 @@ const DeliveryPersonSheet = ({}: Props) => {
   );
 };
 
-export default DeliveryPersonSheet;
+export default InventorySheet;

@@ -10,9 +10,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { InvetriesTS } from "@/lib/validators/inventriesSchema";
+import { InvetoriesTS } from "@/lib/validators/inventoriesSchema";
 
-const columns: ColumnDef<InvetriesTS>[] = [
+const columns: ColumnDef<InvetoriesTS>[] = [
   {
     accessorKey: "sku",
     header: "SKU",

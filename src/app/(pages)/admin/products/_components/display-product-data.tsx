@@ -4,7 +4,7 @@ import { DataTable } from "../../_components/data-table";
 import columns from "./columns";
 import { getAllProducts } from "@/app/data request api/product";
 import { useQuery } from "@tanstack/react-query";
-import { ProductTS } from "@/lib/validators/productSchema";
+import { ProductTS } from "@/lib/validators/productsSchema";
 import { Loader2 } from "lucide-react";
 
 type Props = {};
