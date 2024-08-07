@@ -5,11 +5,3 @@ export interface navItemTS {
   href: string;
   icon: LucideIcon;
 }
-
-// export interface ProductTS {
-//   id: number;
-//   name: string;
-//   image: string;
-//   description: string;
-//   price: number;
-// }
