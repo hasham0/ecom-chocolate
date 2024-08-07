@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 import { DataTable } from "../../_components/data-table";
 import { InvetoriesTS } from "@/lib/validators/inventoriesSchema";
-import { getAllInventries } from "@/app/data request api/inventries";
+import { getAllInventries } from "@/app/data request api/inventories";
 import columns from "./columns";
 
 type Props = {};

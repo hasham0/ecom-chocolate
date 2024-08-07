@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { warehouses } from "../database/schemas/schema";
 
 const inventoriesSchema = z.object({
   id: z.number().optional(),

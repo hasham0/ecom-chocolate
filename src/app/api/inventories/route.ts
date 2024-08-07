@@ -1,33 +1,32 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/database/db";
 import {
-  inventries,
-  inventriesInsertTS,
-  inventriesSelectTS,
-  products,
+  inventories,
+  inventoriesInsertTS,
   warehouses,
+  products,
 } from "@/lib/database/schemas/schema";
-import inventriesSchema from "@/lib/validators/inventriesSchema";
+import inventoriesSchema from "@/lib/validators/inventoriesSchema";
 import { desc, eq } from "drizzle-orm";
 
 export async function GET(request: NextRequest) {
   // ! check auth
 
-  let allInventeryData;
+  let allInventoryData;
 
   // fetch inventery data from db
   try {
-    allInventeryData = await db
+    allInventoryData = await db
       .select({
-        id: inventries.id,
-        sku: inventries.sku,
+        id: inventories.id,
+        sku: inventories.sku,
         warehouse: warehouses.name,
         product: products.name,
       })
-      .from(inventries)
-      .leftJoin(warehouses, eq(inventries.warehouseId, warehouses.id))
-      .leftJoin(products, eq(inventries.productId, products.id))
-      .orderBy(desc(inventries.id));
+      .from(inventories)
+      .leftJoin(warehouses, eq(inventories.warehouseId, warehouses.id))
+      .leftJoin(products, eq(inventories.productId, products.id))
+      .orderBy(desc(inventories.id));
   } catch (error) {
     return NextResponse.json(
       {
@@ -39,7 +38,7 @@ export async function GET(request: NextRequest) {
   }
 
   // checking inventries data length
-  if (!allInventeryData.length) {
+  if (!allInventoryData.length) {
     return NextResponse.json(
       {
         message: "inventry not found in db",
@@ -51,7 +50,7 @@ export async function GET(request: NextRequest) {
   return NextResponse.json(
     {
       message: "OK",
-      data: allInventeryData,
+      data: allInventoryData,
     },
     { status: 200 },
   );
@@ -61,10 +60,10 @@ export async function POST(request: NextRequest) {
   // ! check auth
 
   //   recieve and validate data
-  const data: inventriesInsertTS = await request.json();
+  const data: inventoriesInsertTS = await request.json();
   let validateData;
   try {
-    validateData = inventriesSchema.parse(data);
+    validateData = inventoriesSchema.parse(data);
   } catch (error) {
     return NextResponse.json(
       {
@@ -76,10 +75,10 @@ export async function POST(request: NextRequest) {
   }
 
   //   insert data into db
-  let inventriesData: inventriesInsertTS[];
+  let inventoriesData: inventoriesInsertTS[];
   try {
-    inventriesData = await db
-      .insert(inventries)
+    inventoriesData = await db
+      .insert(inventories)
       .values(validateData)
       .returning()
       .execute();
@@ -96,7 +95,7 @@ export async function POST(request: NextRequest) {
   return NextResponse.json(
     {
       message: "OK",
-      data: inventriesData,
+      data: inventoriesData,
     },
     { status: 200 },
   );

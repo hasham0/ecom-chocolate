@@ -1,11 +1,11 @@
-import { InvetriesTS } from "@/lib/validators/inventriesSchema";
+import { InvetoriesTS } from "@/lib/validators/inventoriesSchema";
 
 export const getAllInventries = async (): Promise<{
   message: string;
-  data: InvetriesTS[];
+  data: InvetoriesTS[];
 }> => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL as string}/inventries`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL as string}/inventories`,
     {
       method: "GET",
       headers: {
@@ -23,10 +23,10 @@ export const getAllInventries = async (): Promise<{
 };
 
 export const newInventry = async (
-  data: InvetriesTS,
-): Promise<{ message: string; data: InvetriesTS[] }> => {
+  data: InvetoriesTS,
+): Promise<{ message: string; data: InvetoriesTS[] }> => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL as string}/inventries`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL as string}/inventories`,
     {
       method: "POST",
       body: JSON.stringify(data),

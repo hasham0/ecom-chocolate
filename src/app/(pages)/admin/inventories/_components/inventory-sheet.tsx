@@ -9,7 +9,7 @@ import {
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/components/ui/use-toast";
 import { useNewInventory } from "@/store/hooks/inventory-hook";
-import { newInventry } from "@/app/data request api/inventries";
+import { newInventry } from "@/app/data request api/inventories";
 import CreateInventoryForm from "./create-inventory-form";
 import { InvetoriesTS } from "@/lib/validators/inventoriesSchema";
 

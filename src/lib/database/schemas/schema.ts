@@ -17,7 +17,7 @@ enum dbTables {
   WAREHOUSES = "warehouses",
   DELIVIERY_PERSONS = "delivery_persons",
   ORDERS = "orders",
-  INVENTRIES = "inventries",
+  INVENTORIES = "inventories",
 }
 
 // user schema
@@ -69,7 +69,7 @@ export const warehouses = pgTable(
     return {
       pincodeIdx: index("pincodeIdx").on(table.pincode),
     };
-  }
+  },
 );
 
 type warehousesSelectTS = InferSelectModel<typeof warehouses>;
@@ -110,8 +110,8 @@ type deliveryPersonsInsertTS = InferInsertModel<typeof deliveryPersons>;
 
 export type { deliveryPersonsSelectTS, deliveryPersonsInsertTS };
 
-// inventries schema
-export const inventries = pgTable(dbTables.INVENTRIES, {
+// inventories schema
+export const inventories = pgTable(dbTables.INVENTORIES, {
   id: serial("id").primaryKey(),
   sku: varchar("sku", { length: 8 }).unique().notNull(),
   orderId: integer("order_id").references(() => orders.id, {
@@ -127,7 +127,7 @@ export const inventries = pgTable(dbTables.INVENTRIES, {
   createdAt: timestamp("created_at").default(sql`CURRENT_TIMESTAMP`),
 });
 
-type inventriesSelectTS = InferSelectModel<typeof inventries>;
-type inventriesInsertTS = InferInsertModel<typeof inventries>;
+type inventoriesSelectTS = InferSelectModel<typeof inventories>;
+type inventoriesInsertTS = InferInsertModel<typeof inventories>;
 
-export type { inventriesSelectTS, inventriesInsertTS };
+export type { inventoriesSelectTS, inventoriesInsertTS };
