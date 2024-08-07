@@ -1,18 +1,11 @@
-import { writeFile } from "node:fs/promises";
 import { NextRequest, NextResponse } from "next/server";
-import path from "node:path";
-import fs from "node:fs/promises";
 import { db } from "@/lib/database/db";
-import {
-  products,
-  productsSelectTS,
-  productsInsertTS,
-} from "@/lib/database/schemas/schema";
+import { products, productsSelectTS } from "@/lib/database/schemas/schema";
 import { eq } from "drizzle-orm";
 
 export async function GET(
   request: NextRequest,
-  { params: { id } }: { params: { id: string } }
+  { params: { id } }: { params: { id: string } },
 ) {
   let getProductByID: productsSelectTS[];
 
@@ -30,7 +23,7 @@ export async function GET(
         message: "failed to get product data by id from db",
         error: error,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 
@@ -41,7 +34,7 @@ export async function GET(
         flag: false,
         message: "product not found in db",
       },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -51,6 +44,6 @@ export async function GET(
       message: "OK",
       data: getProductByID[0],
     },
-    { status: 200 }
+    { status: 200 },
   );
 }

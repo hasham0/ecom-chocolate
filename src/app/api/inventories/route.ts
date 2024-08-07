@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
   const data: inventoriesInsertTS = await request.json();
   let validateData;
   try {
-    validateData = inventoriesSchema.parse(data);
+    validateData = await inventoriesSchema.parseAsync(data);
   } catch (error) {
     return NextResponse.json(
       {
@@ -85,7 +85,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       {
-        messgae: "failed to insert inventries data in db",
+        message: "failed to insert inventries data in db",
         error: error,
       },
       { status: 500 },
@@ -94,7 +94,7 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.json(
     {
-      message: "OK",
+      message: "Inventory Added Successfully",
       data: inventoriesData,
     },
     { status: 200 },

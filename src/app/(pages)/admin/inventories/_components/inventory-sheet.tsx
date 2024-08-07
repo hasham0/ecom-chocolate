@@ -12,6 +12,7 @@ import { useNewInventory } from "@/store/hooks/inventory-hook";
 import { newInventry } from "@/app/data request api/inventories";
 import CreateInventoryForm from "./create-inventory-form";
 import { InvetoriesTS } from "@/lib/validators/inventoriesSchema";
+import { Button } from "@/components/ui/button";
 
 type Props = {};
 
@@ -23,12 +24,20 @@ const InventorySheet = ({}: Props) => {
   const { mutate, isPending } = useMutation({
     mutationKey: ["create-inventory"],
     mutationFn: (data: InvetoriesTS) => newInventry(data),
-    onSuccess: () => {
+
+    onSuccess: (success) => {
+      const { message, status } = success;
       queryClient.invalidateQueries({ queryKey: ["inventories"] });
       onClose();
-      toast({
-        title: "Invetory created Successfully",
-        description: "new invetory added",
+      if (!status) {
+        return toast({
+          variant: "destructive",
+          title: message,
+        });
+      }
+      return toast({
+        variant: "success",
+        title: message,
       });
     },
   });

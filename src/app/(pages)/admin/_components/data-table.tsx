@@ -30,7 +30,13 @@ export function DataTable<TData, TValue>({
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
-
+  if (!data.length) {
+    return (
+      <div className="flex h-64 w-full items-center justify-center text-xl text-red-600 underline underline-offset-1">
+        <h1>Nothing to show</h1>
+      </div>
+    );
+  }
   return (
     <div className="rounded-md border">
       <Table>

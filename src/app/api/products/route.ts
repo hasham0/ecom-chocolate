@@ -50,24 +50,24 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: Request) {
-  //! check user => only admin
-  const session = await getServerSession(authOptions);
+  // //! check user => only admin
+  // const session = await getServerSession(authOptions);
 
-  if (!session) {
-    return Response.json({ message: "Not allowed" }, { status: 401 });
-  }
-  // todo: check user access.
-  // @ts-ignore
-  if (session.token.role !== "admin") {
-    return Response.json({ message: "Not allowed" }, { status: 403 });
-  }
+  // if (!session) {
+  //   return Response.json({ message: "Not allowed" }, { status: 401 });
+  // }
+  // // todo: check user access.
+  // // @ts-ignore
+  // if (session.token.role !== "admin") {
+  //   return Response.json({ message: "Not allowed" }, { status: 403 });
+  // }
   // recive and validate product data
   const data = await request.formData();
 
   let validateData;
 
   try {
-    validateData = productSchema.parse({
+    validateData = await productSchema.parseAsync({
       name: data.get("name"),
       description: data.get("description"),
       price: Number(data.get("price")),
@@ -103,6 +103,7 @@ export async function POST(request: Request) {
       { status: 500 },
     );
   }
+
   // inser product data in db
   let productData: productsInsertTS[];
   try {
@@ -122,7 +123,10 @@ export async function POST(request: Request) {
     );
   }
   return NextResponse.json(
-    { message: "OK", data: productData },
+    {
+      message: "OK",
+      data: productData,
+    },
     { status: 201 },
   );
 }

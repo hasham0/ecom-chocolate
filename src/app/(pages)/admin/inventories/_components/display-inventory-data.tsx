@@ -15,7 +15,7 @@ const DisplayInventoryData = (props: Props) => {
     isLoading,
     isError,
     error,
-  } = useQuery<{ message: string; data: InvetoriesTS[] }>({
+  } = useQuery<{ message: string; data?: InvetoriesTS[] }>({
     queryKey: ["inventories"],
     queryFn: () => getAllInventries(),
   });
@@ -31,11 +31,12 @@ const DisplayInventoryData = (props: Props) => {
   if (isError) {
     const err = error.message;
     return (
-      <div className="text-xl text-red-600 underline underline-offset-1">
+      <div className="flex h-64 w-full items-center justify-center text-xl text-red-600 underline underline-offset-1">
         {err || "Error loading products "}
       </div>
     );
   }
+
   return <DataTable columns={columns} data={inventory?.data || []} />;
 };
 

@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
 
   let validateData: deliveryPersonsInsertTS;
   try {
-    validateData = deliveryPersonSchema.parse(data);
+    validateData = await deliveryPersonSchema.parseAsync(data);
   } catch (error) {
     return NextResponse.json(
       {
