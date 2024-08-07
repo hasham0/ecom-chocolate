@@ -5,7 +5,7 @@ import DisplayWarehouseData from "./_components/display-warehouse-data";
 
 type Props = {};
 
-export default function page({}: Props) {
+export default function WarehousesPage({}: Props) {
   return (
     <div>
       <AddWarehouseButton />

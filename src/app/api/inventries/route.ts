@@ -31,11 +31,10 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       {
-        flag: false,
         messgae: "failed to fetch inventry data from db",
         error: error,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 
@@ -43,20 +42,18 @@ export async function GET(request: NextRequest) {
   if (!allInventeryData.length) {
     return NextResponse.json(
       {
-        flag: false,
         message: "inventry not found in db",
       },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
   return NextResponse.json(
     {
-      flag: true,
       message: "OK",
       data: allInventeryData,
     },
-    { status: 200 }
+    { status: 200 },
   );
 }
 
@@ -71,11 +68,10 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       {
-        flag: false,
         messgae: "failed to validate inventries data",
         error: error,
       },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -90,20 +86,18 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       {
-        flag: false,
         messgae: "failed to insert inventries data in db",
         error: error,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 
   return NextResponse.json(
     {
-      flag: true,
       message: "OK",
       data: inventriesData,
     },
-    { status: 200 }
+    { status: 200 },
   );
 }

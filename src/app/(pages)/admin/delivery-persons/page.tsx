@@ -5,7 +5,7 @@ import DisplayDeliveryPersonData from "./_components/display-delivery-person-dat
 
 type Props = {};
 
-export default function page({}: Props) {
+export default function DeliveryPersonsPage({}: Props) {
   return (
     <div>
       <AddDeliveryPersonButton />

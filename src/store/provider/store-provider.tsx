@@ -1,13 +1,14 @@
 "use client";
-
-import { type ReactNode, createContext, useRef } from "react";
+import { createContext, ReactNode, useRef } from "react";
 import NewProduct from "../product/product-store";
 import NewWarehouse from "../warehouse/warehouse-store";
 import NewDeliveryPerson from "../delivery-person/delivery-person";
+import NewInventory from "../inventory/inventory-store";
 
 export type ProductApi = ReturnType<typeof NewProduct>;
 export type WarehouseApi = ReturnType<typeof NewWarehouse>;
 export type DeliveryPersonApi = ReturnType<typeof NewDeliveryPerson>;
+export type InventoryApi = ReturnType<typeof NewInventory>;
 
 export const ProductStoreContext = createContext<ProductApi | undefined>(
   undefined,
@@ -21,6 +22,10 @@ export const DeliveryPersonStoreContext = createContext<
   DeliveryPersonApi | undefined
 >(undefined);
 
+export const InventoryStoreContext = createContext<InventoryApi | undefined>(
+  undefined,
+);
+
 type Props = {
   children: ReactNode;
 };
@@ -31,6 +36,7 @@ export default function ZustandStoreProvider({ children }: Props) {
   const deliveryPersonStoreRef = useRef<DeliveryPersonApi | undefined>(
     undefined,
   );
+  const inventoryStoreRef = useRef<InventoryApi | undefined>(undefined);
 
   if (!productStoreRef.current) {
     productStoreRef.current = NewProduct();
@@ -41,6 +47,9 @@ export default function ZustandStoreProvider({ children }: Props) {
   if (!deliveryPersonStoreRef.current) {
     deliveryPersonStoreRef.current = NewDeliveryPerson();
   }
+  if (!inventoryStoreRef.current) {
+    inventoryStoreRef.current = NewInventory();
+  }
 
   return (
     <ProductStoreContext.Provider value={productStoreRef.current}>
@@ -48,7 +57,9 @@ export default function ZustandStoreProvider({ children }: Props) {
         <DeliveryPersonStoreContext.Provider
           value={deliveryPersonStoreRef.current}
         >
-          {children}
+          <InventoryStoreContext.Provider value={inventoryStoreRef.current}>
+            {children}
+          </InventoryStoreContext.Provider>
         </DeliveryPersonStoreContext.Provider>
       </WarehouseStoreContext.Provider>
     </ProductStoreContext.Provider>
