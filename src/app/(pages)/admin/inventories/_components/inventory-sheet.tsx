@@ -24,11 +24,11 @@ const InventorySheet = ({}: Props) => {
     mutationKey: ["create-inventory"],
     mutationFn: (data: InvetoriesTS) => newInventry(data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["delivery-person"] });
+      queryClient.invalidateQueries({ queryKey: ["inventories"] });
       onClose();
       toast({
-        title: "Delivery Person Successfully Added",
-        description: "new delivery person added",
+        title: "Invetory created Successfully",
+        description: "new invetory added",
       });
     },
   });

@@ -17,7 +17,7 @@ const DisplayWarehouseData = (props: Props) => {
     error,
   } = useQuery<{ message: string; data: WarehouseTS[] }>({
     queryKey: ["warehouse"],
-    queryFn: getAllWarehouses,
+    queryFn: () => getAllWarehouses(),
   });
 
   if (isLoading) {

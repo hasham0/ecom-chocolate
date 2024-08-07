@@ -17,7 +17,7 @@ const DisplayInventoryData = (props: Props) => {
     error,
   } = useQuery<{ message: string; data: InvetoriesTS[] }>({
     queryKey: ["inventories"],
-    queryFn: getAllInventries,
+    queryFn: () => getAllInventries(),
   });
 
   if (isLoading) {

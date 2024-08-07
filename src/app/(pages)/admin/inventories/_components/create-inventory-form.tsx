@@ -56,7 +56,7 @@ const CreateInventoryForm = ({ onSubmit, disabled }: Props) => {
     data: ProductTS[];
   }>({
     queryKey: ["products"],
-    queryFn: getAllProducts,
+    queryFn: () => getAllProducts(),
   });
 
   const onSubmitHandler = (values: InvetoriesTS) => {
