@@ -16,9 +16,10 @@ export async function GET(request: NextRequest) {
   try {
     allWarehouseData = await db.select().from(warehouses);
   } catch (error) {
+    const cause = (error as { detail: string }).detail;
     return NextResponse.json(
       {
-        messgae: "failed to fetch warehouse data from db",
+        messgae: cause || "failed to fetch warehouse data from db",
         error: error,
       },
       { status: 500 },
@@ -37,7 +38,6 @@ export async function GET(request: NextRequest) {
 
   return NextResponse.json(
     {
-      message: "OK",
       data: allWarehouseData,
     },
     { status: 200 },
@@ -71,9 +71,10 @@ export async function POST(request: NextRequest) {
       .returning()
       .execute();
   } catch (error) {
+    const cause = (error as { detail: string }).detail;
     return NextResponse.json(
       {
-        messgae: "failed to insert warehouse data in db",
+        messgae: cause || "failed to insert warehouse data in db",
         error: error,
       },
       { status: 500 },
@@ -82,7 +83,7 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.json(
     {
-      message: "OK",
+      message: "New Warehouse Added Successfully",
       data: wareahouseData,
     },
     { status: 200 },

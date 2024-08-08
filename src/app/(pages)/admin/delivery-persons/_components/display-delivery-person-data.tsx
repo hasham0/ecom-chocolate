@@ -15,9 +15,9 @@ const DisplayDeliveryPersonData = (props: Props) => {
     isLoading,
     isError,
     error,
-  } = useQuery<{ message: string; data: DeliveryPersonTS[] }>({
+  } = useQuery<{ message?: string; data?: DeliveryPersonTS[] }>({
     queryKey: ["delivery-person"],
-    queryFn: getAllDeliveryPerson,
+    queryFn: () => getAllDeliveryPerson(),
   });
 
   if (isLoading) {

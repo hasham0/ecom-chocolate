@@ -15,7 +15,7 @@ const DisplayProductData = (props: Props) => {
     isLoading,
     isError,
     error,
-  } = useQuery<{ message: string; data: ProductTS[] }>({
+  } = useQuery<{ message?: string; data?: ProductTS[] }>({
     queryKey: ["products"],
     queryFn: () => getAllProducts(),
   });

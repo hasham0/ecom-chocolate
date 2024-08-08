@@ -44,16 +44,16 @@ const CreateInventoryForm = ({ onSubmit, disabled }: Props) => {
   });
 
   const { data: warehouses, isLoading: isWarehouseLoading } = useQuery<{
-    message: string;
-    data: WarehouseTS[];
+    message?: string;
+    data?: WarehouseTS[];
   }>({
     queryKey: ["warehouses"],
     queryFn: () => getAllWarehouses(),
   });
 
   const { data: products, isLoading: isProductsLoading } = useQuery<{
-    message: string;
-    data: ProductTS[];
+    message?: string;
+    data?: ProductTS[];
   }>({
     queryKey: ["products"],
     queryFn: () => getAllProducts(),
@@ -99,6 +99,7 @@ const CreateInventoryForm = ({ onSubmit, disabled }: Props) => {
                   ) : (
                     <>
                       {warehouses &&
+                        warehouses.data?.length &&
                         warehouses.data.map((item) => (
                           <SelectItem
                             key={item.id}
@@ -137,6 +138,7 @@ const CreateInventoryForm = ({ onSubmit, disabled }: Props) => {
                   ) : (
                     <>
                       {products &&
+                        products.data?.length &&
                         products.data.map((item) => (
                           <SelectItem
                             key={item.id}

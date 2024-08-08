@@ -28,10 +28,10 @@ export async function GET(request: NextRequest) {
       .leftJoin(products, eq(inventories.productId, products.id))
       .orderBy(desc(inventories.id));
   } catch (error) {
+    const cause = (error as { detail: string }).detail;
     return NextResponse.json(
       {
-        messgae: "failed to fetch inventry data from db",
-        error: error,
+        message: cause || "failed to fetch inventry data from db",
       },
       { status: 500 },
     );
@@ -68,7 +68,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         messgae: "failed to validate inventries data",
-        error: error,
       },
       { status: 400 },
     );
@@ -83,10 +82,10 @@ export async function POST(request: NextRequest) {
       .returning()
       .execute();
   } catch (error) {
+    const cause = (error as { detail: string }).detail;
     return NextResponse.json(
       {
-        message: "failed to insert inventries data in db",
-        error: error,
+        message: cause || "failed to insert inventries data in db",
       },
       { status: 500 },
     );

@@ -23,12 +23,21 @@ const DeliveryPersonSheet = ({}: Props) => {
   const { mutate, isPending } = useMutation({
     mutationKey: ["create-delivery-person"],
     mutationFn: (data: DeliveryPersonTS) => newDeliveryPerson(data),
-    onSuccess: () => {
+    onSuccess: (success) => {
+      const { message, status } = success;
       queryClient.invalidateQueries({ queryKey: ["delivery-person"] });
       onClose();
-      toast({
-        title: "Delivery Person Added Successfully",
-        description: "new delivery person added",
+      if (!status) {
+        return toast({
+          duration: 3000,
+          variant: "destructive",
+          title: message,
+        });
+      }
+      return toast({
+        duration: 3000,
+        variant: "success",
+        title: message,
       });
     },
   });

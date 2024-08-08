@@ -1,43 +1,49 @@
 import { InvetoriesTS } from "@/lib/validators/inventoriesSchema";
 
-export const getAllInventries = async (): Promise<{
-  message: string;
+type InventryReqTS = {
+  message?: string;
   data?: InvetoriesTS[];
-}> => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL as string}/inventories`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      mode: "no-cors",
-      credentials: "include",
-    },
-  );
-  if (response.status === 404) {
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-  }
-  const result = await response.json();
+  status?: boolean;
+};
 
-  if (response.status === 400) {
+export const getAllInventries = async (): Promise<InventryReqTS> => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL as string}/inventories`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        mode: "no-cors",
+        credentials: "include",
+      },
+    );
+    if (response.status === 404) {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+    }
+    const result = await response.json();
+    if (response.status === 400) {
+      throw new Error(result.message);
+    }
     return {
-      message: result.message,
+      status: true,
+      data: result.data,
+    };
+  } catch (error) {
+    const err = (error as { message: string }).message;
+    return {
+      status: false,
+      message: err,
     };
   }
-  console.log(result);
-  return result;
 };
 
 export const newInventry = async (
   data: InvetoriesTS,
-): Promise<{
-  message: string;
-  status: Boolean;
-  data?: InvetoriesTS[];
-}> => {
+): Promise<InventryReqTS> => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL as string}/inventories`,
@@ -52,14 +58,9 @@ export const newInventry = async (
         throw new Error("Network response was not ok");
       }
     }
-
     const result = await response.json();
-
     if (response.status === 500) {
-      return {
-        message: result.error.detail,
-        status: false,
-      };
+      throw new Error(result.message);
     }
     return {
       status: true,

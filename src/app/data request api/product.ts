@@ -1,41 +1,72 @@
 import { ProductTS } from "@/lib/validators/productsSchema";
 
-export const getAllProducts = async (): Promise<{
-  message: string;
-  data: ProductTS[];
-}> => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL as string}/products`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
+type ProductReqTS = {
+  status?: boolean;
+  data?: ProductTS[];
+  message?: string;
+};
+export const getAllProducts = async (): Promise<ProductReqTS> => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL as string}/products`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        mode: "no-cors",
+        credentials: "include",
       },
-      mode: "no-cors",
-      credentials: "include",
-    },
-  );
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
+    );
+    if (response.status === 404) {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+    }
+    const result = await response.json();
+    if (response.status === 400) {
+      throw new Error(result.message);
+    }
+    return {
+      status: true,
+      data: result.data,
+    };
+  } catch (error) {
+    const err = (error as { message: string }).message;
+    return {
+      status: false,
+      message: err,
+    };
   }
-  const result = await response.json();
-  return result;
 };
 
-export const createProduct = async (
-  data: FormData,
-): Promise<{ message: string; data: ProductTS[] }> => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL as string}/products`,
-    {
-      method: "POST",
-      body: data,
-      credentials: "include",
-    },
-  );
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
+export const createProduct = async (data: FormData): Promise<ProductReqTS> => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL as string}/products`,
+      {
+        method: "POST",
+        body: data,
+        credentials: "include",
+      },
+    );
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const result = await response.json();
+    if (response.status === 400) {
+      throw new Error(result.message);
+    }
+    return {
+      status: true,
+      data: result.data,
+      message: result.message,
+    };
+  } catch (error) {
+    const err = (error as { message: string }).message;
+    return {
+      status: false,
+      message: err,
+    };
   }
-  const result = await response.json();
-  return result.data;
 };

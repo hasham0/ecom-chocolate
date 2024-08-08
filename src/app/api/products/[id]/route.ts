@@ -17,10 +17,11 @@ export async function GET(
       .where(eq(products.id, Number(id)))
       .limit(1);
   } catch (error) {
+    const cause = (error as { detail: string }).detail;
+
     return NextResponse.json(
       {
-        flag: false,
-        message: "failed to get product data by id from db",
+        message: cause || "failed to get product data by id from db",
         error: error,
       },
       { status: 500 },
@@ -31,7 +32,6 @@ export async function GET(
   if (!getProductByID.length) {
     return NextResponse.json(
       {
-        flag: false,
         message: "product not found in db",
       },
       { status: 400 },
@@ -40,8 +40,7 @@ export async function GET(
 
   return NextResponse.json(
     {
-      flag: true,
-      message: "OK",
+      message: "Product Fetch Succesfully",
       data: getProductByID[0],
     },
     { status: 200 },

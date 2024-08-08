@@ -21,10 +21,10 @@ export async function GET(request: NextRequest) {
   try {
     allProducts = await db.select().from(products).orderBy(desc(products.id));
   } catch (error) {
+    const cause = (error as { detail: string }).detail;
     return NextResponse.json(
       {
-        messgae: "failed to fetch product data from db",
-        error: error,
+        messgae: cause || "failed to fetch product data from db",
       },
       { status: 500 },
     );
@@ -42,7 +42,6 @@ export async function GET(request: NextRequest) {
 
   return NextResponse.json(
     {
-      message: "OK",
       data: allProducts,
     },
     { status: 200 },
@@ -82,12 +81,14 @@ export async function POST(request: Request) {
       { status: 400 },
     );
   }
+
   // convert image string into buffer and store it
   const inputImage = isServer
     ? (validateData.image as File)
     : (validateData.image as FileList)[0];
 
   const filename = `${Date.now()}.${inputImage.name.split(".").slice(-1)}`;
+
   try {
     const buffer = Buffer.from(await inputImage.arrayBuffer());
     await writeFile(
@@ -95,10 +96,10 @@ export async function POST(request: Request) {
       buffer,
     );
   } catch (error) {
+    const cause = (error as { detail: string }).detail;
     return NextResponse.json(
       {
-        messgae: "failed to upload image",
-        error: error,
+        messgae: cause || "failed to upload image",
       },
       { status: 500 },
     );
@@ -114,19 +115,20 @@ export async function POST(request: Request) {
       .execute();
   } catch (error) {
     await fs.unlink(path.join(process.cwd(), "public/assets", filename));
+    const cause = (error as { detail: string }).detail;
     return NextResponse.json(
       {
-        messgae: "failed to insert product data in db",
-        error: error,
+        messgae: cause || "failed to insert product data in db",
       },
       { status: 500 },
     );
   }
+
   return NextResponse.json(
     {
-      message: "OK",
+      message: "Product Added successfully",
       data: productData,
     },
-    { status: 201 },
+    { status: 200 },
   );
 }

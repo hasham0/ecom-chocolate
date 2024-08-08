@@ -23,12 +23,21 @@ const WarehouseSheet = ({}: Props) => {
   const { mutate, isPending } = useMutation({
     mutationKey: ["create-warehouse"],
     mutationFn: (data: WarehouseTS) => createWarehouse(data),
-    onSuccess: () => {
+    onSuccess: (success) => {
+      const { status, message } = success;
       queryClient.invalidateQueries({ queryKey: ["warehouse"] });
       onClose();
-      toast({
-        title: "Warehouse Added Successfully",
-        description: "new warehouse added",
+      if (!status) {
+        return toast({
+          duration: 3000,
+          variant: "destructive",
+          title: message,
+        });
+      }
+      return toast({
+        duration: 3000,
+        variant: "success",
+        title: message,
       });
     },
   });

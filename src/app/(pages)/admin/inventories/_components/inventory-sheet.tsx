@@ -31,11 +31,13 @@ const InventorySheet = ({}: Props) => {
       onClose();
       if (!status) {
         return toast({
+          duration: 3000,
           variant: "destructive",
           title: message,
         });
       }
       return toast({
+        duration: 3000,
         variant: "success",
         title: message,
       });

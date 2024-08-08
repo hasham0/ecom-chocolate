@@ -23,12 +23,21 @@ const ProductSheet = ({}: Props) => {
   const { mutate, isPending } = useMutation({
     mutationKey: ["create-product"],
     mutationFn: (data: FormData) => createProduct(data),
-    onSuccess: () => {
+    onSuccess: (success) => {
+      const { message, status } = success;
       queryClient.invalidateQueries({ queryKey: ["products"] });
       onClose();
-      toast({
-        title: "Product Added Successfully",
-        description: "new product added",
+      if (!status) {
+        return toast({
+          duration: 3000,
+          variant: "destructive",
+          title: message,
+        });
+      }
+      return toast({
+        duration: 3000,
+        variant: "success",
+        title: message,
       });
     },
   });

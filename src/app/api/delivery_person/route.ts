@@ -26,10 +26,10 @@ export async function GET(request: NextRequest) {
       .leftJoin(warehouses, eq(deliveryPersons.warehousesId, warehouses.id))
       .orderBy(desc(deliveryPersons.id));
   } catch (error) {
+    const cause = (error as { detail: string }).detail;
     return NextResponse.json(
       {
-        messgae: "failed to fetch delivery person data from db",
-        error: error,
+        messgae: cause || "failed to fetch delivery person data from db",
       },
       { status: 500 },
     );
@@ -47,7 +47,6 @@ export async function GET(request: NextRequest) {
 
   return NextResponse.json(
     {
-      message: "OK",
       data: allDeliveryPerson,
     },
     { status: 200 },
@@ -81,10 +80,10 @@ export async function POST(request: NextRequest) {
       .returning()
       .execute();
   } catch (error) {
+    const cause = (error as { detail: string }).detail;
     return NextResponse.json(
       {
-        messgae: "failed to insert delivery person data in db",
-        error: error,
+        messgae: cause || "failed to insert delivery person data in db",
       },
       { status: 400 },
     );
@@ -92,7 +91,7 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.json(
     {
-      message: "OK",
+      message: "New Delivey Person Addedd Successfully",
       data: deliveryPersonData,
     },
     { status: 200 },
