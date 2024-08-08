@@ -35,7 +35,7 @@ type Props = {
 };
 
 const CreateDeliveryPersonForm = ({ onSubmit, disabled }: Props) => {
-  const form = useForm<z.infer<typeof deliveryPersonSchema>>({
+  const form = useForm<DeliveryPersonTS>({
     resolver: zodResolver(deliveryPersonSchema),
     defaultValues: {
       name: "",

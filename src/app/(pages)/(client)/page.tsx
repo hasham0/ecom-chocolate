@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import Header from "./_components/header";
 import Hero from "./_components/hero";
 import SpecialProducts from "./_components/spceialProducts";
@@ -10,7 +9,6 @@ import Products from "./_components/product";
 export default function Home() {
   return (
     <>
-      <Header />
       <Hero />
       <SpecialProducts />
       <About />

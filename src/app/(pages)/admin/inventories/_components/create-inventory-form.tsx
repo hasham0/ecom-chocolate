@@ -37,7 +37,7 @@ type Props = {
 };
 
 const CreateInventoryForm = ({ onSubmit, disabled }: Props) => {
-  const form = useForm<z.infer<typeof inventoriesSchema>>({
+  const form = useForm<InvetoriesTS>({
     resolver: zodResolver(inventoriesSchema),
     defaultValues: {
       sku: "",

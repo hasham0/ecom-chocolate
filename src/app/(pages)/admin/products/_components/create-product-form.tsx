@@ -2,7 +2,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import productSchema, { FormValues } from "@/lib/validators/productsSchema";
+import productSchema, {
+  FormValues,
+  ProductTS,
+} from "@/lib/validators/productsSchema";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -20,7 +23,7 @@ import { Loader2 } from "lucide-react";
 type Props = { onSubmit: (values: FormValues) => void; disabled: boolean };
 
 const CreateProductForm = ({ onSubmit, disabled }: Props) => {
-  const form = useForm<z.infer<typeof productSchema>>({
+  const form = useForm<ProductTS>({
     resolver: zodResolver(productSchema),
     defaultValues: {
       name: "",

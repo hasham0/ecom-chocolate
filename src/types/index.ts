@@ -19,6 +19,10 @@ type ProductReqTS = Common & {
   data?: ProductTS[];
 };
 
+type SingleProductReqTS = Common & {
+  data?: ProductTS;
+};
+
 type WarehouseReqTS = Common & {
   data?: WarehouseTS[];
 };
@@ -36,4 +40,5 @@ export type {
   WarehouseReqTS,
   InventryReqTS,
   DeliveryPersonReqTS,
+  SingleProductReqTS,
 };

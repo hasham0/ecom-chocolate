@@ -1,5 +1,5 @@
 import { ProductTS } from "@/lib/validators/productsSchema";
-import { ProductReqTS } from "@/types";
+import { ProductReqTS, SingleProductReqTS } from "@/types";
 
 export const getAllProducts = async (): Promise<ProductReqTS> => {
   try {
@@ -36,7 +36,9 @@ export const getAllProducts = async (): Promise<ProductReqTS> => {
   }
 };
 
-export const getProductByID = async (id: string): Promise<ProductReqTS> => {
+export const getProductByID = async (
+  id: string,
+): Promise<SingleProductReqTS> => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL as string}/products/${id}`,
@@ -58,6 +60,7 @@ export const getProductByID = async (id: string): Promise<ProductReqTS> => {
     if (response.status === 400) {
       throw new Error(result.message);
     }
+    console.log(result);
     return {
       status: true,
       data: result.data,

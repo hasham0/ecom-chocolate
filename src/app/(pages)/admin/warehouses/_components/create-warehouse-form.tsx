@@ -21,7 +21,7 @@ import warehousesSchema, {
 type Props = { onSubmit: (values: WarehouseTS) => void; disabled: boolean };
 
 const CreateWarehouseForm = ({ onSubmit, disabled }: Props) => {
-  const form = useForm<z.infer<typeof warehousesSchema>>({
+  const form = useForm<WarehouseTS>({
     resolver: zodResolver(warehousesSchema),
     defaultValues: {
       name: "",
