@@ -1,10 +1,5 @@
 import { InvetoriesTS } from "@/lib/validators/inventoriesSchema";
-
-type InventryReqTS = {
-  message?: string;
-  data?: InvetoriesTS[];
-  status?: boolean;
-};
+import { InventryReqTS } from "@/types";
 
 export const getAllInventries = async (): Promise<InventryReqTS> => {
   try {

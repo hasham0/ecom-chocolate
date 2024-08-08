@@ -25,8 +25,9 @@ import deliveryPersonSchema, {
   DeliveryPersonTS,
 } from "@/lib/validators/deliveryPersonsSchema";
 import { useQuery } from "@tanstack/react-query";
-import { WarehouseTS } from "@/lib/validators/warehouseSchema";
 import { getAllWarehouses } from "@/app/data request api/warehouse";
+import { WarehouseReqTS } from "@/types";
+import { WarehouseTS } from "@/lib/validators/warehouseSchema";
 
 type Props = {
   onSubmit: (values: DeliveryPersonTS) => void;
@@ -47,7 +48,7 @@ const CreateDeliveryPersonForm = ({ onSubmit, disabled }: Props) => {
     data: warehouses,
     isLoading,
     isError,
-  } = useQuery<{ message: string; data: WarehouseTS[] }>({
+  } = useQuery<WarehouseReqTS>({
     queryKey: ["warehouses"],
     queryFn: () => getAllWarehouses(),
   });
@@ -104,7 +105,8 @@ const CreateDeliveryPersonForm = ({ onSubmit, disabled }: Props) => {
                   ) : (
                     <>
                       {warehouses &&
-                        warehouses.data.map((item) => (
+                        warehouses.data?.length &&
+                        warehouses.data.map((item: WarehouseTS) => (
                           <SelectItem
                             key={item.id}
                             value={item.id ? item.id?.toString() : ""}

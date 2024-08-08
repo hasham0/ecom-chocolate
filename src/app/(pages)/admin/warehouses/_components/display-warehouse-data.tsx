@@ -3,9 +3,9 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 import { getAllWarehouses } from "@/app/data request api/warehouse";
-import { WarehouseTS } from "@/lib/validators/warehouseSchema";
 import { DataTable } from "../../_components/data-table";
 import columns from "./columns";
+import { WarehouseReqTS } from "@/types";
 
 type Props = {};
 
@@ -15,7 +15,7 @@ const DisplayWarehouseData = (props: Props) => {
     isLoading,
     isError,
     error,
-  } = useQuery<{ message?: string; data?: WarehouseTS[] }>({
+  } = useQuery<WarehouseReqTS>({
     queryKey: ["warehouse"],
     queryFn: () => getAllWarehouses(),
   });

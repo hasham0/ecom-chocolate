@@ -4,8 +4,8 @@ import { DataTable } from "../../_components/data-table";
 import columns from "./columns";
 import { getAllProducts } from "@/app/data request api/product";
 import { useQuery } from "@tanstack/react-query";
-import { ProductTS } from "@/lib/validators/productsSchema";
 import { Loader2 } from "lucide-react";
+import { ProductReqTS } from "@/types";
 
 type Props = {};
 
@@ -15,7 +15,7 @@ const DisplayProductData = (props: Props) => {
     isLoading,
     isError,
     error,
-  } = useQuery<{ message?: string; data?: ProductTS[] }>({
+  } = useQuery<ProductReqTS>({
     queryKey: ["products"],
     queryFn: () => getAllProducts(),
   });

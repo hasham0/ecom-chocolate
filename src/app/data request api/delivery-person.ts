@@ -1,10 +1,5 @@
 import { DeliveryPersonTS } from "@/lib/validators/deliveryPersonsSchema";
-
-type DeliveryPersonReqTS = {
-  status?: boolean;
-  data?: DeliveryPersonTS[];
-  message?: string;
-};
+import { DeliveryPersonReqTS } from "@/types";
 
 export const getAllDeliveryPerson = async (): Promise<DeliveryPersonReqTS> => {
   try {

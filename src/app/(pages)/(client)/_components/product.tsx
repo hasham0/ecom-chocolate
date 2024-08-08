@@ -8,6 +8,7 @@ import Link from "next/link";
 import React from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ProductTS } from "@/lib/validators/productsSchema";
+import { ProductReqTS } from "@/types";
 
 type Props = {};
 
@@ -19,7 +20,7 @@ const Products = ({}: Props) => {
     isError,
     isLoading,
     error,
-  } = useQuery({
+  } = useQuery<ProductReqTS>({
     queryKey: ["products"],
     queryFn: () => getAllProducts(),
     staleTime: 10 * 1000,

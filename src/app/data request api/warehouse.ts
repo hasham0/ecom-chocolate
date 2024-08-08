@@ -1,10 +1,6 @@
 import { WarehouseTS } from "@/lib/validators/warehouseSchema";
+import { WarehouseReqTS } from "@/types";
 
-type WarehouseReqTS = {
-  status?: boolean;
-  message?: string;
-  data?: WarehouseTS[];
-};
 export const getAllWarehouses = async (): Promise<WarehouseReqTS> => {
   try {
     const response = await fetch(

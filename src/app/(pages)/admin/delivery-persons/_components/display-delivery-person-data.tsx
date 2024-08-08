@@ -6,6 +6,7 @@ import columns from "./columns";
 import { getAllDeliveryPerson } from "@/app/data request api/delivery-person";
 import { DeliveryPersonTS } from "@/lib/validators/deliveryPersonsSchema";
 import { DataTable } from "../../_components/data-table";
+import { DeliveryPersonReqTS } from "@/types";
 
 type Props = {};
 
@@ -15,7 +16,7 @@ const DisplayDeliveryPersonData = (props: Props) => {
     isLoading,
     isError,
     error,
-  } = useQuery<{ message?: string; data?: DeliveryPersonTS[] }>({
+  } = useQuery<DeliveryPersonReqTS>({
     queryKey: ["delivery-person"],
     queryFn: () => getAllDeliveryPerson(),
   });

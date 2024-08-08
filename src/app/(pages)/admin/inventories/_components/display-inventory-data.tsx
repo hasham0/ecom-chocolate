@@ -3,9 +3,9 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 import { DataTable } from "../../_components/data-table";
-import { InvetoriesTS } from "@/lib/validators/inventoriesSchema";
 import { getAllInventries } from "@/app/data request api/inventories";
 import columns from "./columns";
+import { InventryReqTS } from "@/types";
 
 type Props = {};
 
@@ -15,7 +15,7 @@ const DisplayInventoryData = (props: Props) => {
     isLoading,
     isError,
     error,
-  } = useQuery<{ message?: string; data?: InvetoriesTS[] }>({
+  } = useQuery<InventryReqTS>({
     queryKey: ["inventories"],
     queryFn: () => getAllInventries(),
   });

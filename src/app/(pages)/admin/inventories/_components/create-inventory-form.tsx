@@ -29,6 +29,7 @@ import inventoriesSchema, {
 import { WarehouseTS } from "@/lib/validators/warehouseSchema";
 import { ProductTS } from "@/lib/validators/productsSchema";
 import { getAllProducts } from "@/app/data request api/product";
+import { ProductReqTS, WarehouseReqTS } from "@/types";
 
 type Props = {
   onSubmit: (values: InvetoriesTS) => void;
@@ -43,21 +44,17 @@ const CreateInventoryForm = ({ onSubmit, disabled }: Props) => {
     },
   });
 
-  const { data: warehouses, isLoading: isWarehouseLoading } = useQuery<{
-    message?: string;
-    data?: WarehouseTS[];
-  }>({
-    queryKey: ["warehouses"],
-    queryFn: () => getAllWarehouses(),
-  });
+  const { data: warehouses, isLoading: isWarehouseLoading } =
+    useQuery<WarehouseReqTS>({
+      queryKey: ["warehouses"],
+      queryFn: () => getAllWarehouses(),
+    });
 
-  const { data: products, isLoading: isProductsLoading } = useQuery<{
-    message?: string;
-    data?: ProductTS[];
-  }>({
-    queryKey: ["products"],
-    queryFn: () => getAllProducts(),
-  });
+  const { data: products, isLoading: isProductsLoading } =
+    useQuery<ProductReqTS>({
+      queryKey: ["products"],
+      queryFn: () => getAllProducts(),
+    });
 
   const onSubmitHandler = (values: InvetoriesTS) => {
     onSubmit(values);

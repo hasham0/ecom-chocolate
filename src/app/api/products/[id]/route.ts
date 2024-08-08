@@ -18,7 +18,6 @@ export async function GET(
       .limit(1);
   } catch (error) {
     const cause = (error as { detail: string }).detail;
-
     return NextResponse.json(
       {
         message: cause || "failed to get product data by id from db",
@@ -40,7 +39,6 @@ export async function GET(
 
   return NextResponse.json(
     {
-      message: "Product Fetch Succesfully",
       data: getProductByID[0],
     },
     { status: 200 },
