@@ -3,7 +3,7 @@ import Image from "next/image";
 import React from "react";
 type Props = {};
 
-function Hero({}: Props) {
+const Hero = ({}: Props) => {
   return (
     <>
       <section className="custom-height relative">
@@ -25,9 +25,9 @@ function Hero({}: Props) {
           src="/chocolate.jpg"
           alt="Hero Chololate"
           fill
-          // width={0}
-          // height={0}
-          // sizes="100vw"
+          width={0}
+          height={0}
+          sizes="100vw"
           // style={{ width: '100%', height: '100%' }} // optional
           className="-z-10 object-cover"
         />
@@ -35,6 +35,6 @@ function Hero({}: Props) {
       </section>
     </>
   );
-}
+};
 
 export default Hero;

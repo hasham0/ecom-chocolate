@@ -5,7 +5,7 @@ import Image from "next/image";
 import React from "react";
 type Props = {};
 
-function NewsLettter({}: Props) {
+const NewsLettter = ({}: Props) => {
   return (
     <>
       <section className="mx-auto max-w-6xl px-5 py-14 md:py-20">
@@ -42,6 +42,6 @@ function NewsLettter({}: Props) {
       </section>
     </>
   );
-}
+};
 
 export default NewsLettter;

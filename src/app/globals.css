@@ -71,3 +71,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+.custom-height {
+  height: calc(100vh-96px);
+}

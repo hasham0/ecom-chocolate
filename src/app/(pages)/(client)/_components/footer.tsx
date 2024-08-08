@@ -2,7 +2,7 @@ import React from "react";
 
 type Props = {};
 
-function Footer({}: Props) {
+const Footer = ({}: Props) => {
   return (
     <>
       <footer className="bg-brown-900 flex items-center justify-center py-3 text-white">
@@ -10,6 +10,6 @@ function Footer({}: Props) {
       </footer>
     </>
   );
-}
+};
 
 export default Footer;

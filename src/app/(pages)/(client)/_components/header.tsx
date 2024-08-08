@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 
 type Props = {};
 
-function Header({}: Props) {
+const Header = ({}: Props) => {
   const pathname = usePathname();
   // const session = useSession();
   // console.log("session", session);
@@ -51,6 +51,6 @@ function Header({}: Props) {
       </header>
     </>
   );
-}
+};
 
 export default Header;

@@ -3,7 +3,7 @@ import Image from "next/image";
 
 type Props = {};
 
-function SpecialProducts({}: Props) {
+const SpecialProducts = ({}: Props) => {
   const products = [
     { src: "/product1.jpg", alt: "product1", name: "Cadbury Dairy Milk" },
     { src: "/product2.jpg", alt: "product2", name: "Mars Bars" },
@@ -42,6 +42,6 @@ function SpecialProducts({}: Props) {
       </section>
     </>
   );
-}
+};
 
 export default SpecialProducts;

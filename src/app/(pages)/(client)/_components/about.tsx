@@ -4,7 +4,7 @@ import { Separator } from "@/components/ui/separator";
 
 type Props = {};
 
-function About({}: Props) {
+const About = ({}: Props) => {
   return (
     <>
       <section className="mx-auto max-w-6xl px-5 py-14 md:py-20">
@@ -30,6 +30,6 @@ function About({}: Props) {
       </section>
     </>
   );
-}
+};
 
 export default About;
